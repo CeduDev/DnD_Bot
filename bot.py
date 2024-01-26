@@ -13,7 +13,7 @@ client = discord.Client(intents=intents)
 
 HELP_COMMAND = '/help'
 CAST_DICE_COMMAND = '/cast_dice'
-ONE_OR_TWO_DIGIT_REGEX = '^\d{1,2}$'
+ONE_OR_TWO_DIGIT_REGEX = '^\\d{1,2}$'
 
 WRONG_DICE_TEXT = f"""
 Ah, valiant seeker, thy attempt to cast the dice with a cryptic value hath summoned the ire of the arcane spirits. Beware, for the forces of the ethereal realm frown upon such mystic insolence.
