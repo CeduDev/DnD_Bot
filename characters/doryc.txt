@@ -1,0 +1,1 @@
+{"name": "Doryc", "max_hp": "??", "current_hp": "??", "initiative": "??", "armor_class": "??"}
