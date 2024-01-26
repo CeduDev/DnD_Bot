@@ -64,6 +64,7 @@ async def on_message(message):
 
     if m == HELP_COMMAND: await message.channel.send(HELP_TEXT)
     elif m.startswith(CAST_DICE_COMMAND): await message.channel.send(cast_dice(m))
+    elif not m.startswith("/"): return
     else: await message.channel.send(UNKNOWN_COMMAND_TEXT)
         
 
