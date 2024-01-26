@@ -14,6 +14,8 @@ client = discord.Client(intents=intents)
 HELP_COMMAND = '/help'
 CAST_DICE_COMMAND = '/cast_dice'
 ONE_OR_TWO_DIGIT_REGEX = '^\\d{1,2}$'
+FUNNY1 = "/kikkeli"
+FUNNY2 = "/pippeli"
 
 WRONG_DICE_TEXT = f"""
 Ah, valiant seeker, thy attempt to cast the dice with a cryptic value hath summoned the ire of the arcane spirits. Beware, for the forces of the ethereal realm frown upon such mystic insolence.
@@ -64,6 +66,8 @@ async def on_message(message):
 
     if m == HELP_COMMAND: await message.channel.send(HELP_TEXT)
     elif m.startswith(CAST_DICE_COMMAND): await message.channel.send(cast_dice(m))
+    elif m == FUNNY1: await message.channel.send("Pippeli hihi")
+    elif m == FUNNY2: await message.channel.send("Kikkeli hihi")
     elif not m.startswith("/"): return
     else: await message.channel.send(UNKNOWN_COMMAND_TEXT)
         
