@@ -5,14 +5,14 @@
         "name": "CeduDev"
       },
       "category": "Feature",
-      "creation_time": "2024-01-27T11:01:26.860Z",
+      "creation_time": "2024-01-27T11:03:24.332Z",
       "description": {
-        "content": "Add a command for getting the stats for a user.\n\nNOTE! A user can only get their own stats, not anyone elses",
+        "content": "Add a command for <action> the health/temp etc for a character. \n\nNOTE! Maybe only the DM can do this?",
         "mime": "text/markdown"
       },
-      "id": "1",
+      "id": "3",
       "references": [],
-      "title": "Add /get_stats only for own user"
+      "title": "Add </health, /temp_health etc.> <action> <character_name>"
     },
     {
       "assignedTo": {
@@ -27,23 +27,33 @@
       "id": "2",
       "references": [],
       "title": "Check integration with Novel.AI for AI NPCs"
-    },
+    }
+  ],
+  "in-progress": [],
+  "testing": [],
+  "done": [
     {
       "assignedTo": {
         "name": "CeduDev"
       },
       "category": "Feature",
-      "creation_time": "2024-01-27T11:03:24.332Z",
+      "creation_time": "2024-01-27T11:01:26.860Z",
       "description": {
-        "content": "Add a command for <action> the health/temp etc for a character. \n\nNOTE! Maybe only the DM can do this?",
+        "content": "Add a command for getting the stats for a user.\n\nNOTE! A user can only get their own stats, not anyone elses. DM can get anyones",
         "mime": "text/markdown"
       },
-      "id": "3",
+      "id": "1",
       "references": [],
-      "title": "Add </health, /temp_health etc.> <action> <character_name>"
+      "title": "Add /get_stats only for own user"
+    },
+    {
+      "assignedTo": {
+        "name": "CeduDev"
+      },
+      "creation_time": "2024-01-27T15:41:05.695Z",
+      "id": "4",
+      "references": [],
+      "title": "Upgrade to use menu directly in discord"
     }
-  ],
-  "in-progress": [],
-  "testing": [],
-  "done": []
+  ]
 }

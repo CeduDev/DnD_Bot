@@ -3,90 +3,107 @@ import os
 import random
 import re
 import discord
-import json
-from texts import WRONG_DICE_TEXT, UNKNOWN_COMMAND_TEXT, HELP_TEXT
+from discord.ext import commands
+from discord import app_commands
+from helpers import log, read_file, write_file, parse_character_stats, is_your_character
+from texts import (
+    CAST_DICE_DESCRIPTION,
+    UNKNOWN_COMMAND_TEXT,
+    HELP_TEXT,
+    ONLY_DM_TEXT_AND_YOUR_CHARACTER,
+    GET_CHARACTER_STAT_DESCRIPTION,
+    HELP_DESCRIPTION,
+)
 from consts import (
-    CHAD_DC,
-    DORYC_DC,
-    TURKEY_DC,
     DM_DC,
     CHAD,
     DORYC,
     TURKEY,
-    ALL_CHARACTERS,
     HELP_COMMAND,
     CAST_DICE_COMMAND,
-    GET_CHARACTER_STAT,
-    FUNNY1,
-    FUNNY2,
-    ONE_OR_TWO_DIGIT_REGEX,
+    GET_CHARACTER_STAT_COMMAND,
+    FUNNY1_COMMAND,
+    FUNNY2_COMMAND,
 )
 
-load_dotenv()  # take environment variables from .env.
+load_dotenv()
 
 intents = discord.Intents.default()
 intents.message_content = True
-
-client = discord.Client(intents=intents)
-
-
-def read_file(file):
-    return json.load(open(file))
+client = commands.Bot(command_prefix="/", intents=intents)
 
 
-def write_file(dict_out, file):
-    json.dump(dict_out, open(file, "w"))
-    return
+@client.tree.command(name="ping", description="Ping pong")
+async def ping(interaction: discord.Interaction):
+    await interaction.response.send_message("pong")
 
 
-def parse_character_stats(char_dict):
-    return f"""
-The stats of {char_dict["name"]} are the following:
-
-Current health: {char_dict["current_hp"]}
-Max health: {char_dict["max_hp"]}
-Initiative: {char_dict["initiative"]}
-Armor class: {char_dict["armor_class"]}
-    """
-
-
-def log(text):
-    print("=============== {} ===============".format(text))
-
-
-def cast_dice(message):
-    message_s = message.split(" ")
-    if (
-        message_s[0] != CAST_DICE_COMMAND
-        or len(message_s) != 2
-        or re.search(ONE_OR_TWO_DIGIT_REGEX, message_s[1]) == None
-    ):
-        return WRONG_DICE_TEXT
-
-    number = int(message_s[1])
-    if number not in [4, 6, 8, 9, 12, 20]:
-        return WRONG_DICE_TEXT
-
-    return f"Thy magic number is: {random.randint(1, number)}!"
+@client.tree.command(
+    name=CAST_DICE_COMMAND,
+    description=CAST_DICE_DESCRIPTION,
+)
+@app_commands.describe(dice="Dice to throw")
+@app_commands.choices(
+    dice=[
+        app_commands.Choice(name="d4", value=4),
+        app_commands.Choice(name="d6", value=6),
+        app_commands.Choice(name="d8", value=8),
+        app_commands.Choice(name="d9", value=9),
+        app_commands.Choice(name="d12", value=12),
+        app_commands.Choice(name="d20", value=20),
+    ]
+)
+async def cast_dice(interaction: discord.Interaction, dice: int):
+    await interaction.response.send_message(
+        f"Thy magic d{dice} number is: {random.randint(1, dice)}!"
+    )
 
 
-def get_character_stat(message):
-    message_s = message.split(" ")
-    if (
-        message_s[0] != GET_CHARACTER_STAT
-        or len(message_s) != 2
-        or message_s[1] not in ALL_CHARACTERS
-    ):
-        return "Nope"
+@client.tree.command(
+    name=GET_CHARACTER_STAT_COMMAND,
+    description=GET_CHARACTER_STAT_DESCRIPTION,
+)
+@app_commands.describe(character="Character name")
+@app_commands.choices(
+    character=[
+        app_commands.Choice(name=CHAD, value=CHAD),
+        app_commands.Choice(name=DORYC, value=DORYC),
+        app_commands.Choice(name=TURKEY, value=TURKEY),
+    ]
+)
+async def get_character_stat(interaction: discord.Interaction, character: str):
+    author = interaction.user.name
+    if author != DM_DC and not is_your_character(author, character):
+        await interaction.response.send_message(ONLY_DM_TEXT_AND_YOUR_CHARACTER)
+        return
 
-    return parse_character_stats(read_file(f"./characters/{message_s[1]}.txt"))
+    await interaction.response.send_message(
+        parse_character_stats(read_file(f"./characters/{character}.txt"))
+    )
 
 
-@client.event
-async def on_ready():
-    log(f"We have logged in as {client.user}")
+@client.tree.command(name=HELP_COMMAND, description=HELP_DESCRIPTION)
+async def help(interaction: discord.Interaction):
+    await interaction.response.send_message(HELP_TEXT)
 
 
+@client.tree.command(
+    name=FUNNY1_COMMAND,
+    description="hihi",
+)
+async def kikkeli(interaction: discord.Interaction):
+    await interaction.response.send_message("pippeli hihi")
+
+
+@client.tree.command(
+    name=FUNNY2_COMMAND,
+    description="hihi",
+)
+async def pippeli(interaction: discord.Interaction):
+    await interaction.response.send_message("kikkeli hihi")
+
+
+# This should only be run when no command was selected from the menu in discord
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -94,36 +111,28 @@ async def on_message(message):
 
     m = message.content
 
-    print(message.author)
-
-    if m == HELP_COMMAND:
-        await message.channel.send(HELP_TEXT)
-    elif m.startswith(CAST_DICE_COMMAND):
-        await message.channel.send(cast_dice(m))
-    elif m.startswith(GET_CHARACTER_STAT):
-        await message.channel.send(get_character_stat(m))
-    elif m == FUNNY1:
-        await message.channel.send("Pippeli hihi")
-    elif m == FUNNY2:
-        await message.channel.send("Kikkeli hihi")
-    elif m == "/ping":
-        await message.channel.send("Pong")
-    elif not m.startswith("/"):
+    if not m.startswith("/"):
         return
     else:
         await message.channel.send(UNKNOWN_COMMAND_TEXT)
 
 
-chad_f = "./characters/chad.txt"
-doryc_f = "./characters/doryc.txt"
-turkey_f = "./characters/turkey.txt"
-
-chad_dict = read_file(chad_f)
-doryc_dict = read_file(doryc_f)
-turkey_dict = read_file(turkey_f)
+@client.event
+async def on_ready():
+    await client.change_presence(status=discord.Status.online)
+    await client.tree.sync()
+    log(f"We have logged in as {client.user}")
 
 
 if __name__ == "__main__":
+    chad_f = "./characters/chad.txt"
+    doryc_f = "./characters/doryc.txt"
+    turkey_f = "./characters/turkey.txt"
+
+    chad_dict = read_file(chad_f)
+    doryc_dict = read_file(doryc_f)
+    turkey_dict = read_file(turkey_f)
+
     log("Successfully read all the character files!")
     log("Running client...")
     client.run(os.getenv("BOT_PASSWORD"))
@@ -132,6 +141,7 @@ if __name__ == "__main__":
         write_file(chad_dict, chad_f)
         write_file(doryc_dict, doryc_f)
         write_file(turkey_dict, turkey_f)
+        log("Successfully wrote files")
     except:
         log("Failed writing files...")
     log("Shutting down...")
