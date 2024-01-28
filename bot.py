@@ -52,11 +52,6 @@ async def cast_dice(interaction: discord.Interaction, dice: int):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
         return
 
-    author = interaction.user.name
-    if author != consts.DM_DC and not is_your_character(author, character):
-        await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
-        return
-
     await interaction.response.send_message(
         f"Thy magic d{dice} number is: {random.randint(1, dice)}!"
     )
