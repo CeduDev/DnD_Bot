@@ -53,3 +53,5 @@ Hark! Thy attempt to summon this incantation in this channel is met with arcane 
 """
 
 FORGOT_VALUE_TEXT = "Alas, valiant seeker, the mystical forces yearn for a missing value to fuel the spell and shape the destiny of thy character's skill."
+
+OUT_OF_BOUND_DEATH_SAVE = "Beware, intrepid seeker, for the arcane boundaries forbid the alteration of death save values beyond the mortal range; tread carefully, lest the balance of life's delicate weave be disrupted in our digital realm."

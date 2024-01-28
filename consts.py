@@ -58,7 +58,9 @@ STAT_INITIATIVE = ("initiative", "Initiative")
 STAT_ARMOR_CLASS = ("armor_class", "Armor Class")
 # STAT_ = ("saving_throw_advantage", "Saving Throw Advantage")
 # STAT_ = ("defenses", "Defenses")
-# STAT_ = ("death_saves", "Death Saves")
+STAT_DEATH_SAVES = ("death_saves", "Death Saves")
+STAT_DEATH_SAVES_SUCCESSES = ("successes", "Successes")
+STAT_DEATH_SAVES_FAILURES = ("failures", "Failures")
 STAT_SKILL_ACROBATICS = ("acrobatics", "Acrobatics")
 STAT_SKILL_ANIMAL_HANDLING = ("animal_handling", "Animal Handling")
 STAT_SKILL_ARCANA = ("arcana", "Arcana")
@@ -87,6 +89,8 @@ STAT_ARRAY = [
     STAT_INITIATIVE,
     STAT_ARMOR_CLASS,
 ]
+
+DEATH_SAVES_ARR = [STAT_DEATH_SAVES_SUCCESSES, STAT_DEATH_SAVES_FAILURES]
 
 # Skill array
 STAT_SKILL_ARRAY = [
@@ -118,6 +122,7 @@ FUNNY1_COMMAND = "kikkeli"
 FUNNY2_COMMAND = "pippeli"
 SKILL_COMMAND = "skill"
 STAT_COMMAND = "stat"
+DEATH_SAVES_COMMAND = "death_saves"
 
 # Regexes
 ONE_OR_TWO_DIGIT_REGEX = "^\\d{1,2}$"

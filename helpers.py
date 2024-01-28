@@ -3,11 +3,12 @@ import sys
 from consts import (
     DC_CHAR_DICT,
     DC_BOT_CHANNEL_DICT,
+    CHAR_BOT_CHANNEL_DICT,
     STAT_SKILL_ARRAY,
     STAT_ARRAY,
-    CHAR_BOT_CHANNEL_DICT,
+    DEATH_SAVES_ARR,
 )
-from texts import FORGOT_VALUE_TEXT
+from texts import FORGOT_VALUE_TEXT, OUT_OF_BOUND_DEATH_SAVE
 
 
 def log(text):
@@ -122,3 +123,47 @@ def set_stat(stat: str, character: str, CHAR_FILE_DICT, value: int):
         description = list(filter(lambda x: x[0] == stat, STAT_ARRAY))[0]
         CHAR_FILE_DICT[character][stat] = value
         return f"Huzzah! With a triumphant invocation, thou hast successfully set a value of {value} to thy stat '{description[1]}', weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+# Death save actions
+
+
+def get_death_save(version: str, character: str, CHAR_FILE_DICT):
+    description = list(filter(lambda x: x[0] == version, DEATH_SAVES_ARR))[0]
+
+    return f"Behold! The modifier for the death save '{description[1]}' unfolds before thee: {CHAR_FILE_DICT[character]['death_saves'][version]}"
+
+
+def add_to_death_save(version: str, character: str, CHAR_FILE_DICT, value: int):
+    if value == sys.maxsize:
+        return FORGOT_VALUE_TEXT
+    else:
+        res_value = CHAR_FILE_DICT[character]["death_saves"][version] + value
+        if res_value > 3 or res_value < 0:
+            return OUT_OF_BOUND_DEATH_SAVE
+        description = list(filter(lambda x: x[0] == version, DEATH_SAVES_ARR))[0]
+        CHAR_FILE_DICT[character]["death_saves"][version] = res_value
+        return f"Huzzah! With a triumphant invocation, thou hast successfully added a value of {value} to thy death save '{description[1]}', resulting in {res_value}, weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+def remove_from_death_save(version: str, character: str, CHAR_FILE_DICT, value: int):
+    if value == sys.maxsize:
+        return FORGOT_VALUE_TEXT
+    else:
+        res_value = CHAR_FILE_DICT[character]["death_saves"][version] - value
+        if res_value > 3 or res_value < 0:
+            return OUT_OF_BOUND_DEATH_SAVE
+        description = list(filter(lambda x: x[0] == version, DEATH_SAVES_ARR))[0]
+        CHAR_FILE_DICT[character]["death_saves"][version] = res_value
+        return f"Huzzah! With a triumphant invocation, thou hast successfully removed a value of {value} to thy death save '{description[1]}', resulting in {res_value}, weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+def set_death_save(version: str, character: str, CHAR_FILE_DICT, value: int):
+    if value == sys.maxsize:
+        return FORGOT_VALUE_TEXT
+    else:
+        if value > 3 or value < 0:
+            return OUT_OF_BOUND_DEATH_SAVE
+        description = list(filter(lambda x: x[0] == version, DEATH_SAVES_ARR))[0]
+        CHAR_FILE_DICT[character]["death_saves"][version] = value
+        return f"Huzzah! With a triumphant invocation, thou hast successfully set a value of {value} to thy death save '{description[1]}', weaving newfound prowess into the fabric of thy character's destiny in our digital realm."

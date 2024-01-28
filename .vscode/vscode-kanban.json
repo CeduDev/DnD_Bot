@@ -4,6 +4,19 @@
       "assignedTo": {
         "name": "CeduDev"
       },
+      "creation_time": "2024-01-28T18:00:47.878Z",
+      "description": {
+        "content": "Cateogires:\nGeneral stats\nSkills\nDeaths Saves\nAbility scores\nSaving throws",
+        "mime": "text/markdown"
+      },
+      "id": "5",
+      "references": [],
+      "title": "/get_stats <category>"
+    },
+    {
+      "assignedTo": {
+        "name": "CeduDev"
+      },
       "category": "Feature",
       "creation_time": "2024-01-27T11:03:24.332Z",
       "description": {
@@ -32,14 +45,10 @@
       "assignedTo": {
         "name": "CeduDev"
       },
-      "creation_time": "2024-01-28T18:00:47.878Z",
-      "description": {
-        "content": "Cateogires:\nGeneral stats\nSkills\nDeaths Saves\nAbility scores\nSaving throws",
-        "mime": "text/markdown"
-      },
-      "id": "5",
+      "creation_time": "2024-01-28T18:42:35.534Z",
+      "id": "6",
       "references": [],
-      "title": "/get_stats <category>"
+      "title": "/cast_death_save"
     }
   ],
   "in-progress": [],
