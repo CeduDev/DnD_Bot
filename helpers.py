@@ -1,6 +1,12 @@
 import json
 import sys
-from consts import DC_CHAR_DICT, DC_BOT_CHANNEL_DICT, STAT_SKILL_ARRAY, STAT_ARRAY
+from consts import (
+    DC_CHAR_DICT,
+    DC_BOT_CHANNEL_DICT,
+    STAT_SKILL_ARRAY,
+    STAT_ARRAY,
+    CHAR_BOT_CHANNEL_DICT,
+)
 from texts import FORGOT_VALUE_TEXT
 
 
@@ -32,8 +38,14 @@ def is_your_character(author, message_character):
     return DC_CHAR_DICT[author] == message_character
 
 
-def is_correct_character_stat_channel(interaction):
-    return interaction.channel.name == DC_BOT_CHANNEL_DICT[interaction.user.name]
+def is_correct_character_stat_channel(interaction, character=""):
+    if character == "":
+        return interaction.channel.name in DC_BOT_CHANNEL_DICT[interaction.user.name]
+    else:
+        return (
+            interaction.channel.name in DC_BOT_CHANNEL_DICT[interaction.user.name]
+            and character == CHAR_BOT_CHANNEL_DICT[interaction.channel.name]
+        )
 
 
 def get_skill(skill: str, character: str, CHAR_FILE_DICT):

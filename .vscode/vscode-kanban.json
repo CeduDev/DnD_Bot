@@ -27,6 +27,19 @@
       "id": "2",
       "references": [],
       "title": "Check integration with Novel.AI for AI NPCs"
+    },
+    {
+      "assignedTo": {
+        "name": "CeduDev"
+      },
+      "creation_time": "2024-01-28T18:00:47.878Z",
+      "description": {
+        "content": "Cateogires:\nGeneral stats\nSkills\nDeaths Saves\nAbility scores\nSaving throws",
+        "mime": "text/markdown"
+      },
+      "id": "5",
+      "references": [],
+      "title": "/get_stats <category>"
     }
   ],
   "in-progress": [],

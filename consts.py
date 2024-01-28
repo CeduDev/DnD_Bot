@@ -15,17 +15,29 @@ ALL_CHARACTERS = [CHAD, DORYC, TURKEY]
 CHAD_BOT_C = "chad-solo"
 DORYC_BOT_C = "doryc-solo"
 TURKEY_BOT_C = "turkey-solo"
-DM_BOT_C = "dm-solo"
+
+# Players own bot channels in array form
+CHAD_BOT_C_ARR = ["chad-solo"]
+DORYC_BOT_C_ARR = ["doryc-solo"]
+TURKEY_BOT_C_ARR = ["turkey-solo"]
+DM_BOT_C_ARR = ["dm-solo", "chad-solo", "doryc-solo", "turkey-solo"]
 
 # DC name to character dict
 DC_CHAR_DICT = {CHAD_DC: CHAD, DORYC_DC: DORYC, TURKEY_DC: TURKEY}
 
-# DC name to own bot channel dict
+# DC name to own bot channel array dict
 DC_BOT_CHANNEL_DICT = {
-    CHAD_DC: CHAD_BOT_C,
-    DORYC_DC: DORYC_BOT_C,
-    TURKEY_DC: TURKEY_BOT_C,
-    DM_DC: DM_BOT_C,
+    CHAD_DC: CHAD_BOT_C_ARR,
+    DORYC_DC: DORYC_BOT_C_ARR,
+    TURKEY_DC: TURKEY_BOT_C_ARR,
+    DM_DC: DM_BOT_C_ARR,
+}
+
+# Character name to own bot channel dict
+CHAR_BOT_CHANNEL_DICT = {
+    CHAD_BOT_C: CHAD,
+    DORYC_BOT_C: DORYC,
+    TURKEY_BOT_C: TURKEY,
 }
 
 # Stat actions with description

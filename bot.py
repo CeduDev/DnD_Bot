@@ -78,7 +78,7 @@ async def cast_dice(interaction: discord.Interaction, dice: int):
     ]
 )
 async def get_character_stat(interaction: discord.Interaction, character: str):
-    if not is_correct_character_stat_channel(interaction):
+    if not is_correct_character_stat_channel(interaction, character):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
         return
 
@@ -125,7 +125,7 @@ async def stat(
     character: str,
     value: typing.Optional[int] = sys.maxsize,
 ):
-    if not is_correct_character_stat_channel(interaction):
+    if not is_correct_character_stat_channel(interaction, character):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
         return
 
@@ -187,7 +187,7 @@ async def skill(
     character: str,
     value: typing.Optional[int] = sys.maxsize,
 ):
-    if not is_correct_character_stat_channel(interaction):
+    if not is_correct_character_stat_channel(interaction, character):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
         return
 
@@ -214,6 +214,70 @@ async def skill(
         await interaction.response.send_message(res)
     else:
         await interaction.response.send_message("wtf")
+
+
+# @client.tree.command(
+#     name=consts.DEATH_SAVES_COMMAND, description=texts.DEATH_SAVES_DESCRIPTION
+# )
+# @app_commands.describe(
+#     action="What action to take",
+#     version="Which version to act on",
+#     character="Character name",
+#     value="Value to act with",
+# )
+# @app_commands.choices(
+#     action=list(
+#         map(
+#             lambda x: Choice(name=x[1], value=x[0]),
+#             consts.ACTION_ARRAY,
+#         )
+#     ),
+#     skill=list(
+#         map(
+#             lambda x: Choice(name=x[1], value=x[0]),
+#             consts.STAT_SKILL_ARRAY,
+#         )
+#     ),
+#     character=[
+#         Choice(name=consts.CHAD, value=consts.CHAD),
+#         Choice(name=consts.DORYC, value=consts.DORYC),
+#         Choice(name=consts.TURKEY, value=consts.TURKEY),
+#     ],
+# )
+# async def skill(
+#     interaction: discord.Interaction,
+#     action: str,
+#     skill: str,
+#     character: str,
+#     value: typing.Optional[int] = sys.maxsize,
+# ):
+#     if not is_correct_character_stat_channel(interaction, character):
+#         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
+#         return
+
+#     author = interaction.user.name
+#     if author != consts.DM_DC and not is_your_character(author, character):
+#         await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
+#         return
+
+#     if action == consts.GET[0]:
+#         await interaction.response.send_message(
+#             get_skill(skill, character, CHAR_FILE_DICT)
+#         )
+#     elif action == consts.ADD[0]:
+#         res = add_to_skill(skill, character, CHAR_FILE_DICT, value)
+#         write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+#         await interaction.response.send_message(res)
+#     elif action == consts.REMOVE[0]:
+#         res = remove_from_skill(skill, character, CHAR_FILE_DICT, value)
+#         write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+#         await interaction.response.send_message(res)
+#     elif action == consts.SET[0]:
+#         res = set_skill(skill, character, CHAR_FILE_DICT, value)
+#         write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+#         await interaction.response.send_message(res)
+#     else:
+#         await interaction.response.send_message("wtf")
 
 
 @client.tree.command(name=consts.HELP_COMMAND, description=texts.HELP_DESCRIPTION)
