@@ -15,6 +15,7 @@ ALL_CHARACTERS = [CHAD, DORYC, TURKEY]
 CHAD_BOT_C = "chad-solo"
 DORYC_BOT_C = "doryc-solo"
 TURKEY_BOT_C = "turkey-solo"
+DM_BOT_C = "dm-solo"
 
 # Players own bot channels in array form
 CHAD_BOT_C_ARR = ["chad-solo"]
@@ -33,11 +34,12 @@ DC_BOT_CHANNEL_DICT = {
     DM_DC: DM_BOT_C_ARR,
 }
 
-# Character name to own bot channel dict
+# Character names allowed to modify in bot channels dict
 CHAR_BOT_CHANNEL_DICT = {
-    CHAD_BOT_C: CHAD,
-    DORYC_BOT_C: DORYC,
-    TURKEY_BOT_C: TURKEY,
+    CHAD_BOT_C: [CHAD],
+    DORYC_BOT_C: [DORYC],
+    TURKEY_BOT_C: [TURKEY],
+    DM_BOT_C: [CHAD, DORYC, TURKEY],
 }
 
 # Stat actions with description
@@ -58,6 +60,15 @@ STAT_INITIATIVE = ("initiative", "Initiative")
 STAT_ARMOR_CLASS = ("armor_class", "Armor Class")
 # STAT_ = ("saving_throw_advantage", "Saving Throw Advantage")
 # STAT_ = ("defenses", "Defenses")
+STAT_ABILITY_SCORE = ("ability_score", "Ability Score")
+STAT_ABILITY_SCORE_BASE = ("base", "Base")
+STAT_ABILITY_SCORE_MODIFIER = ("modifier", "Modifier")
+STAT_ABILITY_SCORE_STRENGTH = ("strength", "Strength")
+STAT_ABILITY_SCORE_DEXTERITY = ("dexterity", "Dexterity")
+STAT_ABILITY_SCORE_CONSTITUTION = ("constitution", "Constitution")
+STAT_ABILITY_SCORE_INTELLIGENCE = ("intelligence", "Intelligence")
+STAT_ABILITY_SCORE_WISDOM = ("wisdom", "Wisdom")
+STAT_ABILITY_SCORE_CHARISMA = ("charisma", "Charisma")
 STAT_SAVING_THROW = ("saving_throw", "Saving Throw")
 STAT_SAVING_THROW_STRENGTH = ("strength", "Strength")
 STAT_SAVING_THROW_DEXTERITY = ("dexterity", "Dexterity")
@@ -97,8 +108,20 @@ STAT_ARRAY = [
     STAT_ARMOR_CLASS,
 ]
 
+# Death saves array
 DEATH_SAVES_ARR = [STAT_DEATH_SAVES_SUCCESSES, STAT_DEATH_SAVES_FAILURES]
 
+# Ability score array
+ABILITY_SCORE_ARRAY = [
+    STAT_ABILITY_SCORE_STRENGTH,
+    STAT_ABILITY_SCORE_DEXTERITY,
+    STAT_ABILITY_SCORE_CONSTITUTION,
+    STAT_ABILITY_SCORE_INTELLIGENCE,
+    STAT_ABILITY_SCORE_WISDOM,
+    STAT_ABILITY_SCORE_CHARISMA,
+]
+
+# Saving throws array
 SAVING_THROW_ARRAY = [
     STAT_SAVING_THROW_STRENGTH,
     STAT_SAVING_THROW_DEXTERITY,
@@ -139,7 +162,8 @@ FUNNY2_COMMAND = "pippeli"
 SKILL_COMMAND = "skill"
 STAT_COMMAND = "stat"
 DEATH_SAVES_COMMAND = "death_saves"
-SAVING_THROWS = "saving_throws"
+SAVING_THROWS_COMMAND = "saving_throws"
+ABILITY_SCORE_COMMAND = "ability_score"
 
 # Regexes
 ONE_OR_TWO_DIGIT_REGEX = "^\\d{1,2}$"

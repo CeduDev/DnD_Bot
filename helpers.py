@@ -8,6 +8,7 @@ from consts import (
     STAT_ARRAY,
     DEATH_SAVES_ARR,
     SAVING_THROW_ARRAY,
+    ABILITY_SCORE_ARRAY,
 )
 from texts import FORGOT_VALUE_TEXT, OUT_OF_BOUND_DEATH_SAVE
 
@@ -25,6 +26,7 @@ def write_file(dict_out, file):
     return
 
 
+# TODO! Make betterrrr
 def parse_character_stats(char_dict):
     return f"""
 The stats of {char_dict["name"]} are the following:
@@ -33,6 +35,8 @@ Current health: {char_dict["current_hp"]}
 Max health: {char_dict["max_hp"]}
 Initiative: {char_dict["initiative"]}
 Armor class: {char_dict["armor_class"]}
+
+NOTE! This feature  will be improved on!
     """
 
 
@@ -46,7 +50,7 @@ def is_correct_character_stat_channel(interaction, character=""):
     else:
         return (
             interaction.channel.name in DC_BOT_CHANNEL_DICT[interaction.user.name]
-            and character == CHAR_BOT_CHANNEL_DICT[interaction.channel.name]
+            and character in CHAR_BOT_CHANNEL_DICT[interaction.channel.name]
         )
 
 
@@ -199,3 +203,62 @@ def set_saving_throw(saving_throw: str, character: str, CHAR_FILE_DICT, value: i
     description = list(filter(lambda x: x[0] == saving_throw, SAVING_THROW_ARRAY))[0]
     CHAR_FILE_DICT[character]["saving_throws"][saving_throw] = value
     return f"Huzzah! With a triumphant invocation, thou hast successfully set a value of {value} to thy saving throw '{description[1]}', weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+# Saving throw actions
+
+
+def get_ability_score(
+    ability_score: str, base_or_modifier: str, character: str, CHAR_FILE_DICT
+):
+    description = list(filter(lambda x: x[0] == ability_score, ABILITY_SCORE_ARRAY))[0]
+
+    return f"Behold! The {base_or_modifier} for the ability score '{description[1]}' unfolds before thee: {CHAR_FILE_DICT[character]['ability_scores'][ability_score][base_or_modifier]}"
+
+
+def add_to_ability_score(
+    ability_score: str,
+    base_or_modifier: str,
+    character: str,
+    CHAR_FILE_DICT,
+    value: int,
+):
+    res_value = (
+        CHAR_FILE_DICT[character]["ability_scores"][ability_score][base_or_modifier]
+        + value
+    )
+    description = list(filter(lambda x: x[0] == ability_score, ABILITY_SCORE_ARRAY))[0]
+    CHAR_FILE_DICT[character]["ability_scores"][ability_score][
+        base_or_modifier
+    ] = res_value
+    return f"Huzzah! With a triumphant invocation, thou hast successfully added a value of {value} to thy ability score {base_or_modifier} '{description[1]}', resulting in {res_value}, weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+def remove_from_ability_score(
+    ability_score: str,
+    base_or_modifier: str,
+    character: str,
+    CHAR_FILE_DICT,
+    value: int,
+):
+    res_value = (
+        CHAR_FILE_DICT[character]["ability_scores"][ability_score][base_or_modifier]
+        - value
+    )
+    description = list(filter(lambda x: x[0] == ability_score, ABILITY_SCORE_ARRAY))[0]
+    CHAR_FILE_DICT[character]["ability_scores"][ability_score][
+        base_or_modifier
+    ] = res_value
+    return f"Huzzah! With a triumphant invocation, thou hast successfully removed a value of {value} to ability score {base_or_modifier} '{description[1]}', resulting in {res_value}, weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+def set_ability_score(
+    ability_score: str,
+    base_or_modifier: str,
+    character: str,
+    CHAR_FILE_DICT,
+    value: int,
+):
+    description = list(filter(lambda x: x[0] == ability_score, ABILITY_SCORE_ARRAY))[0]
+    CHAR_FILE_DICT[character]["ability_scores"][ability_score][base_or_modifier] = value
+    return f"Huzzah! With a triumphant invocation, thou hast successfully set a value of {value} to ability score {base_or_modifier} '{description[1]}', weaving newfound prowess into the fabric of thy character's destiny in our digital realm."

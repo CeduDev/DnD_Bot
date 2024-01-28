@@ -4,28 +4,10 @@
       "assignedTo": {
         "name": "CeduDev"
       },
-      "creation_time": "2024-01-28T18:00:47.878Z",
-      "description": {
-        "content": "Cateogires:\nGeneral stats\nSkills\nDeaths Saves\nAbility scores\nSaving throws",
-        "mime": "text/markdown"
-      },
-      "id": "5",
+      "creation_time": "2024-01-28T18:42:35.534Z",
+      "id": "6",
       "references": [],
-      "title": "/get_stats <category>"
-    },
-    {
-      "assignedTo": {
-        "name": "CeduDev"
-      },
-      "category": "Feature",
-      "creation_time": "2024-01-27T11:03:24.332Z",
-      "description": {
-        "content": "Add a command for <action> the health/temp etc for a character. \n\nNOTE! Maybe only the DM can do this?",
-        "mime": "text/markdown"
-      },
-      "id": "3",
-      "references": [],
-      "title": "Add </health, /temp_health etc.> <action> <character_name>"
+      "title": "/cast_death_save"
     },
     {
       "assignedTo": {
@@ -40,20 +22,24 @@
       "id": "2",
       "references": [],
       "title": "Check integration with Novel.AI for AI NPCs"
-    },
-    {
-      "assignedTo": {
-        "name": "CeduDev"
-      },
-      "creation_time": "2024-01-28T18:42:35.534Z",
-      "id": "6",
-      "references": [],
-      "title": "/cast_death_save"
     }
   ],
   "in-progress": [],
   "testing": [],
   "done": [
+    {
+      "assignedTo": {
+        "name": "CeduDev"
+      },
+      "creation_time": "2024-01-28T18:00:47.878Z",
+      "description": {
+        "content": "Cateogires:\nGeneral stats\nSkills\nDeaths Saves\nAbility scores\nSaving throws",
+        "mime": "text/markdown"
+      },
+      "id": "5",
+      "references": [],
+      "title": "/get_stats <category>"
+    },
     {
       "assignedTo": {
         "name": "CeduDev"
@@ -67,6 +53,20 @@
       "id": "1",
       "references": [],
       "title": "Add /get_stats only for own user"
+    },
+    {
+      "assignedTo": {
+        "name": "CeduDev"
+      },
+      "category": "Feature",
+      "creation_time": "2024-01-27T11:03:24.332Z",
+      "description": {
+        "content": "Add a command for <action> the health/temp etc for a character. \n\nNOTE! Maybe only the DM can do this?",
+        "mime": "text/markdown"
+      },
+      "id": "3",
+      "references": [],
+      "title": "Add </health, /temp_health etc.> <action> <character_name>"
     },
     {
       "assignedTo": {

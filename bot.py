@@ -29,6 +29,10 @@ from helpers import (
     add_to_saving_throw,
     remove_from_saving_throw,
     set_saving_throw,
+    get_ability_score,
+    add_to_ability_score,
+    remove_from_ability_score,
+    set_ability_score,
 )
 import texts
 import consts
@@ -295,7 +299,7 @@ async def death_saves(
 
 
 @client.tree.command(
-    name=consts.SAVING_THROWS, description=texts.SAVING_THROWS_DESCRIPTION
+    name=consts.SAVING_THROWS_COMMAND, description=texts.SAVING_THROWS_DESCRIPTION
 )
 @app_commands.describe(
     action="What action to take",
@@ -356,6 +360,95 @@ async def saving_throw(
         await interaction.response.send_message(res)
     else:
         await interaction.response.send_message("wtf")
+
+
+@client.tree.command(
+    name=consts.ABILITY_SCORE_COMMAND, description=texts.ABILITY_SCORE_DESCRIPTION
+)
+@app_commands.describe(
+    action="What action to take",
+    ability_score="Which ability score to act on",
+    base_or_modifier="Act on base or modifier",
+    character="Character name",
+    value="Value to act with",
+)
+@app_commands.choices(
+    action=list(
+        map(
+            lambda x: Choice(name=x[1], value=x[0]),
+            consts.ACTION_ARRAY,
+        )
+    ),
+    ability_score=list(
+        map(
+            lambda x: Choice(name=x[1], value=x[0]),
+            consts.ABILITY_SCORE_ARRAY,
+        )
+    ),
+    base_or_modifier=[
+        Choice(
+            name=consts.STAT_ABILITY_SCORE_BASE[1],
+            value=consts.STAT_ABILITY_SCORE_BASE[0],
+        ),
+        Choice(
+            name=consts.STAT_ABILITY_SCORE_MODIFIER[1],
+            value=consts.STAT_ABILITY_SCORE_MODIFIER[0],
+        ),
+    ],
+    character=[
+        Choice(name=consts.CHAD, value=consts.CHAD),
+        Choice(name=consts.DORYC, value=consts.DORYC),
+        Choice(name=consts.TURKEY, value=consts.TURKEY),
+    ],
+)
+async def ability_score(
+    interaction: discord.Interaction,
+    action: str,
+    ability_score: str,
+    base_or_modifier: str,
+    character: str,
+    value: typing.Optional[int] = sys.maxsize,
+):
+    if not is_correct_character_stat_channel(interaction, character):
+        await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
+        return
+
+    author = interaction.user.name
+    if author != consts.DM_DC and not is_your_character(author, character):
+        await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
+        return
+
+    if action == consts.GET[0]:
+        await interaction.response.send_message(
+            get_ability_score(
+                ability_score, base_or_modifier, character, CHAR_FILE_DICT
+            )
+        )
+    elif action == consts.ADD[0]:
+        res = add_to_ability_score(
+            ability_score, base_or_modifier, character, CHAR_FILE_DICT, value
+        )
+        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        await interaction.response.send_message(res)
+    elif action == consts.REMOVE[0]:
+        res = remove_from_ability_score(
+            ability_score, base_or_modifier, character, CHAR_FILE_DICT, value
+        )
+        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        await interaction.response.send_message(res)
+    elif action == consts.SET[0]:
+        res = set_ability_score(
+            ability_score, base_or_modifier, character, CHAR_FILE_DICT, value
+        )
+        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        await interaction.response.send_message(res)
+    else:
+        await interaction.response.send_message("wtf")
+
+
+# TODO! Add command for /cast_death_save
+
+# TODO! Add command for inventory (how to get a dynamic list of items to choice in the UI?)
 
 
 @client.tree.command(name=consts.HELP_COMMAND, description=texts.HELP_DESCRIPTION)
