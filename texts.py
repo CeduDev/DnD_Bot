@@ -35,7 +35,7 @@ UNKNOWN_COMMAND_TEXT = f"""
 Hail, seeker of the arcane! Thy attempt at an unknown command hath stirred the ethereal winds. Fear not, for guidance lies in the sacred "/{HELP_COMMAND}" command, unveiling the secrets of our realm. Let the mystic incantations guide thee, and may the digital ether reveal its wisdom on this path of discovery.
 """
 
-HELP_TEXT = f"""
+HELP_TEXT1 = f"""
 
 Greetings, noble user of the arcane arts! Behold the mystic commands at your disposal:
 
@@ -50,7 +50,9 @@ And lo! A command of great import — '/{GET_CHARACTER_STAT_COMMAND} <character_
 
 /{SKILL_COMMAND} <action> <attribute> <character> <value>:
 In the symphony of commands, '/{SKILL_COMMAND} <action> <attribute> <character> <value>' performs a mystical action upon a character. May the harmonies of this command resonate with precision, shaping the destiny of characters in the cosmic dance of our digital tapestry.
+"""
 
+HELP_TEXT2 = f"""
 /{STAT_COMMAND} <action> <stat> <character> <value>:
 Hark, noble seeker! The command '/{STAT_COMMAND} <action> <stat> <character> <value>' beckons you to weave fate's tapestry by performing a mystical action upon a character's overarching stats. May this incantation sculpt destinies in the cosmic dance of our digital realm.
 

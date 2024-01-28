@@ -453,7 +453,9 @@ async def ability_score(
 
 @client.tree.command(name=consts.HELP_COMMAND, description=texts.HELP_DESCRIPTION)
 async def help(interaction: discord.Interaction):
-    await interaction.response.send_message(texts.HELP_TEXT)
+    await interaction.response.send_message(texts.HELP_TEXT1)
+    # TODO! Fix so that the other part of the help message is sent
+    # await interaction.send_message(texts.HELP_TEXT2)
 
 
 @client.tree.command(
