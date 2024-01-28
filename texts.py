@@ -43,5 +43,5 @@ Furthermore, be aware that the privilege to invoke this enchantment is granted s
 """
 
 INCORRECT_CHANNEL_TEXT = f"""
-Hark! Thy attempt to summon character stats in this channel is met with arcane resistance. The command is reserved for the sacred chamber where Dungeon Master's wisdom reigns. Seek the rightful channel - thy personal bot channel - where revelations may unfold seamlessly.
+Hark! Thy attempt to summon this incantation in this channel is met with arcane resistance. The command is reserved for the sacred chamber where Dungeon Master's wisdom reigns. Seek the rightful channel - thy personal bot channel - where revelations may unfold seamlessly.
 """
