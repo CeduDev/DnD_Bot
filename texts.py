@@ -19,6 +19,10 @@ DEATH_SAVES_DESCRIPTION = (
     "Mystic command shaping the death saves in our digital tapestry."
 )
 
+SAVING_THROWS_DESCRIPTION = (
+    "Mystic command shaping the saving throws in our digital tapestry."
+)
+
 UNKNOWN_COMMAND_TEXT = f"""
 Hail, seeker of the arcane! Thy attempt at an unknown command hath stirred the ethereal winds. Fear not, for guidance lies in the sacred "/{HELP_COMMAND}" command, unveiling the secrets of our realm. Let the mystic incantations guide thee, and may the digital ether reveal its wisdom on this path of discovery.
 """

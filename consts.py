@@ -58,6 +58,13 @@ STAT_INITIATIVE = ("initiative", "Initiative")
 STAT_ARMOR_CLASS = ("armor_class", "Armor Class")
 # STAT_ = ("saving_throw_advantage", "Saving Throw Advantage")
 # STAT_ = ("defenses", "Defenses")
+STAT_SAVING_THROW = ("saving_throw", "Saving Throw")
+STAT_SAVING_THROW_STRENGTH = ("strength", "Strength")
+STAT_SAVING_THROW_DEXTERITY = ("dexterity", "Dexterity")
+STAT_SAVING_THROW_CONSTITUTION = ("constitution", "Constitution")
+STAT_SAVING_THROW_INTELLIGENCE = ("intelligence", "Intelligence")
+STAT_SAVING_THROW_WISDOM = ("wisdom", "Wisdom")
+STAT_SAVING_THROW_CHARISMA = ("charisma", "Charisma")
 STAT_DEATH_SAVES = ("death_saves", "Death Saves")
 STAT_DEATH_SAVES_SUCCESSES = ("successes", "Successes")
 STAT_DEATH_SAVES_FAILURES = ("failures", "Failures")
@@ -92,6 +99,15 @@ STAT_ARRAY = [
 
 DEATH_SAVES_ARR = [STAT_DEATH_SAVES_SUCCESSES, STAT_DEATH_SAVES_FAILURES]
 
+SAVING_THROW_ARRAY = [
+    STAT_SAVING_THROW_STRENGTH,
+    STAT_SAVING_THROW_DEXTERITY,
+    STAT_SAVING_THROW_CONSTITUTION,
+    STAT_SAVING_THROW_INTELLIGENCE,
+    STAT_SAVING_THROW_WISDOM,
+    STAT_SAVING_THROW_CHARISMA,
+]
+
 # Skill array
 STAT_SKILL_ARRAY = [
     STAT_SKILL_ACROBATICS,
@@ -123,6 +139,7 @@ FUNNY2_COMMAND = "pippeli"
 SKILL_COMMAND = "skill"
 STAT_COMMAND = "stat"
 DEATH_SAVES_COMMAND = "death_saves"
+SAVING_THROWS = "saving_throws"
 
 # Regexes
 ONE_OR_TWO_DIGIT_REGEX = "^\\d{1,2}$"

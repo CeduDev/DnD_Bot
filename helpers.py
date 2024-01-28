@@ -7,6 +7,7 @@ from consts import (
     STAT_SKILL_ARRAY,
     STAT_ARRAY,
     DEATH_SAVES_ARR,
+    SAVING_THROW_ARRAY,
 )
 from texts import FORGOT_VALUE_TEXT, OUT_OF_BOUND_DEATH_SAVE
 
@@ -167,3 +168,34 @@ def set_death_save(version: str, character: str, CHAR_FILE_DICT, value: int):
         description = list(filter(lambda x: x[0] == version, DEATH_SAVES_ARR))[0]
         CHAR_FILE_DICT[character]["death_saves"][version] = value
         return f"Huzzah! With a triumphant invocation, thou hast successfully set a value of {value} to thy death save '{description[1]}', weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+# Saving throw actions
+
+
+def get_saving_throw(saving_throw: str, character: str, CHAR_FILE_DICT):
+    description = list(filter(lambda x: x[0] == saving_throw, SAVING_THROW_ARRAY))[0]
+
+    return f"Behold! The modifier for the saving throw '{description[1]}' unfolds before thee: {CHAR_FILE_DICT[character]['saving_throws'][saving_throw]}"
+
+
+def add_to_saving_throw(saving_throw: str, character: str, CHAR_FILE_DICT, value: int):
+    res_value = CHAR_FILE_DICT[character]["saving_throws"][saving_throw] + value
+    description = list(filter(lambda x: x[0] == saving_throw, SAVING_THROW_ARRAY))[0]
+    CHAR_FILE_DICT[character]["saving_throws"][saving_throw] = res_value
+    return f"Huzzah! With a triumphant invocation, thou hast successfully added a value of {value} to thy saving throw '{description[1]}', resulting in {res_value}, weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+def remove_from_saving_throw(
+    saving_throw: str, character: str, CHAR_FILE_DICT, value: int
+):
+    res_value = CHAR_FILE_DICT[character]["saving_throws"][saving_throw] - value
+    description = list(filter(lambda x: x[0] == saving_throw, SAVING_THROW_ARRAY))[0]
+    CHAR_FILE_DICT[character]["saving_throws"][saving_throw] = res_value
+    return f"Huzzah! With a triumphant invocation, thou hast successfully removed a value of {value} to thy saving throw '{description[1]}', resulting in {res_value}, weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+def set_saving_throw(saving_throw: str, character: str, CHAR_FILE_DICT, value: int):
+    description = list(filter(lambda x: x[0] == saving_throw, SAVING_THROW_ARRAY))[0]
+    CHAR_FILE_DICT[character]["saving_throws"][saving_throw] = value
+    return f"Huzzah! With a triumphant invocation, thou hast successfully set a value of {value} to thy saving throw '{description[1]}', weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
