@@ -3,6 +3,10 @@ from consts import (
     CAST_DICE_COMMAND,
     GET_CHARACTER_STAT_COMMAND,
     SKILL_COMMAND,
+    STAT_COMMAND,
+    DEATH_SAVES_COMMAND,
+    SAVING_THROWS_COMMAND,
+    ABILITY_SCORE_COMMAND,
 )
 
 CAST_DICE_DESCRIPTION = "Beware cryptic dice! Honor sacred numerals 4, 6, 8, 9, 12, 20 for destiny's true reveal."
@@ -46,6 +50,18 @@ And lo! A command of great import — '/{GET_CHARACTER_STAT_COMMAND} <character_
 
 /{SKILL_COMMAND} <action> <attribute> <character> <value>:
 In the symphony of commands, '/{SKILL_COMMAND} <action> <attribute> <character> <value>' performs a mystical action upon a character. May the harmonies of this command resonate with precision, shaping the destiny of characters in the cosmic dance of our digital tapestry.
+
+/{STAT_COMMAND} <action> <stat> <character> <value>:
+Hark, noble seeker! The command '/{STAT_COMMAND} <action> <stat> <character> <value>' beckons you to weave fate's tapestry by performing a mystical action upon a character's overarching stats. May this incantation sculpt destinies in the cosmic dance of our digital realm.
+
+/{DEATH_SAVES_COMMAND} <action> <version> <character> <value>:
+The command '/{DEATH_SAVES_COMMAND} <action> <version> <character> <value>' beckons, allowing thee to manipulate the threads of fate by performing a mystic action upon a character's dire struggle for life. May this incantation shape the outcome in the ethereal dance of our digital tapestry.
+
+/{SAVING_THROWS_COMMAND} <action> <skill> <character> <value>:
+Hark, intrepid adventurer! Unveil the command '/{SAVING_THROWS_COMMAND} <action> <skill> <character> <value>', a mystic invocation to wield influence upon a character's saving throws in the cosmic dance of our digital realm. May this incantation sway the tides of destiny in thy favor.
+
+/{ABILITY_SCORE_COMMAND} <action> <ability score> <base or modifier> <character> <value>:
+Hear ye, valiant seeker! The command '/{ABILITY_SCORE_COMMAND} <action> <ability score> <base or modifier> <character> <value>' unfolds a mystical avenue to shape the essence of a character's abilities—be it base or modifier. May this incantation sculpt the very core of destiny in the cosmic dance of our digital tapestry.
 
 May the arcane forces guide you on your quest, and may the digits align in your favor, brave adventurer!
 """
