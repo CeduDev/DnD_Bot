@@ -5,6 +5,7 @@ import re
 import discord
 from discord.ext import commands
 from discord import app_commands
+from discord.app_commands import Choice
 from helpers import (
     log,
     read_file,
@@ -16,9 +17,15 @@ from helpers import (
     add_to_skill,
     remove_from_skill,
     set_skill,
+    get_stat,
+    add_to_stat,
+    remove_from_stat,
+    set_stat,
 )
 import texts
 import consts
+import typing
+import sys
 
 load_dotenv()
 
@@ -39,12 +46,13 @@ async def ping(interaction: discord.Interaction):
 @app_commands.describe(dice="Dice to throw")
 @app_commands.choices(
     dice=[
-        app_commands.Choice(name="d4", value=4),
-        app_commands.Choice(name="d6", value=6),
-        app_commands.Choice(name="d8", value=8),
-        app_commands.Choice(name="d9", value=9),
-        app_commands.Choice(name="d12", value=12),
-        app_commands.Choice(name="d20", value=20),
+        Choice(name="d2", value=2),
+        Choice(name="d4", value=4),
+        Choice(name="d6", value=6),
+        Choice(name="d8", value=8),
+        Choice(name="d9", value=9),
+        Choice(name="d12", value=12),
+        Choice(name="d20", value=20),
     ]
 )
 async def cast_dice(interaction: discord.Interaction, dice: int):
@@ -64,9 +72,9 @@ async def cast_dice(interaction: discord.Interaction, dice: int):
 @app_commands.describe(character="Character name")
 @app_commands.choices(
     character=[
-        app_commands.Choice(name=consts.CHAD, value=consts.CHAD),
-        app_commands.Choice(name=consts.DORYC, value=consts.DORYC),
-        app_commands.Choice(name=consts.TURKEY, value=consts.TURKEY),
+        Choice(name=consts.CHAD, value=consts.CHAD),
+        Choice(name=consts.DORYC, value=consts.DORYC),
+        Choice(name=consts.TURKEY, value=consts.TURKEY),
     ]
 )
 async def get_character_stat(interaction: discord.Interaction, character: str):
@@ -84,33 +92,100 @@ async def get_character_stat(interaction: discord.Interaction, character: str):
     )
 
 
+@client.tree.command(name=consts.STAT_COMMAND, description=texts.STAT_DESCRIPTION)
+@app_commands.describe(
+    action="What action to take",
+    stat="Which stat to act on",
+    character="Character name",
+    value="Value to act with",
+)
+@app_commands.choices(
+    action=list(
+        map(
+            lambda x: Choice(name=x[1], value=x[0]),
+            consts.ACTION_ARRAY,
+        )
+    ),
+    stat=list(
+        map(
+            lambda x: Choice(name=x[1], value=x[0]),
+            consts.STAT_ARRAY,
+        )
+    ),
+    character=[
+        Choice(name=consts.CHAD, value=consts.CHAD),
+        Choice(name=consts.DORYC, value=consts.DORYC),
+        Choice(name=consts.TURKEY, value=consts.TURKEY),
+    ],
+)
+async def stat(
+    interaction: discord.Interaction,
+    action: str,
+    stat: str,
+    character: str,
+    value: typing.Optional[int] = sys.maxsize,
+):
+    if not is_correct_character_stat_channel(interaction):
+        await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
+        return
+
+    author = interaction.user.name
+    if author != consts.DM_DC and not is_your_character(author, character):
+        await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
+        return
+
+    if action == consts.GET[0]:
+        await interaction.response.send_message(
+            get_stat(stat, character, CHAR_FILE_DICT)
+        )
+    elif action == consts.ADD[0]:
+        res = add_to_stat(stat, character, CHAR_FILE_DICT, value)
+        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        await interaction.response.send_message(res)
+    elif action == consts.REMOVE[0]:
+        res = remove_from_stat(stat, character, CHAR_FILE_DICT, value)
+        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        await interaction.response.send_message(res)
+    elif action == consts.SET[0]:
+        res = set_stat(stat, character, CHAR_FILE_DICT, value)
+        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        await interaction.response.send_message(res)
+    else:
+        await interaction.response.send_message("wtf")
+
+
 @client.tree.command(name=consts.SKILL_COMMAND, description=texts.SKILL_DESCRIPTION)
 @app_commands.describe(
     action="What action to take",
     skill="Which skill to act on",
     character="Character name",
+    value="Value to act with",
 )
 @app_commands.choices(
     action=list(
         map(
-            lambda x: app_commands.Choice(name=x[1], value=x[0]),
+            lambda x: Choice(name=x[1], value=x[0]),
             consts.ACTION_ARRAY,
         )
     ),
     skill=list(
         map(
-            lambda x: app_commands.Choice(name=x[1], value=x[0]),
+            lambda x: Choice(name=x[1], value=x[0]),
             consts.STAT_SKILL_ARRAY,
         )
     ),
     character=[
-        app_commands.Choice(name=consts.CHAD, value=consts.CHAD),
-        app_commands.Choice(name=consts.DORYC, value=consts.DORYC),
-        app_commands.Choice(name=consts.TURKEY, value=consts.TURKEY),
+        Choice(name=consts.CHAD, value=consts.CHAD),
+        Choice(name=consts.DORYC, value=consts.DORYC),
+        Choice(name=consts.TURKEY, value=consts.TURKEY),
     ],
 )
 async def skill(
-    interaction: discord.Interaction, action: str, skill: str, character: str
+    interaction: discord.Interaction,
+    action: str,
+    skill: str,
+    character: str,
+    value: typing.Optional[int] = sys.maxsize,
 ):
     if not is_correct_character_stat_channel(interaction):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
@@ -126,17 +201,19 @@ async def skill(
             get_skill(skill, character, CHAR_FILE_DICT)
         )
     elif action == consts.ADD[0]:
-        add_to_skill(skill, character, CHAR_FILE_DICT)
-        await interaction.response.send_message("pippeli hihi")
+        res = add_to_skill(skill, character, CHAR_FILE_DICT, value)
+        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        await interaction.response.send_message(res)
     elif action == consts.REMOVE[0]:
-        remove_from_skill(skill, character, CHAR_FILE_DICT)
-        await interaction.response.send_message("pippeli hihi")
+        res = remove_from_skill(skill, character, CHAR_FILE_DICT, value)
+        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        await interaction.response.send_message(res)
     elif action == consts.SET[0]:
-        set_skill(skill, character, CHAR_FILE_DICT)
-        await interaction.response.send_message("pippeli hihi")
+        res = set_skill(skill, character, CHAR_FILE_DICT, value)
+        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        await interaction.response.send_message(res)
     else:
-        print("wtf")
-        await interaction.response.send_message("pippeli hihi")
+        await interaction.response.send_message("wtf")
 
 
 @client.tree.command(name=consts.HELP_COMMAND, description=texts.HELP_DESCRIPTION)
@@ -193,6 +270,12 @@ CHAR_FILE_DICT = {
     consts.CHAD: chad_dict,
     consts.DORYC: doryc_dict,
     consts.TURKEY: turkey_dict,
+}
+
+CHAR_FILE = {
+    consts.CHAD: chad_f,
+    consts.DORYC: doryc_f,
+    consts.TURKEY: turkey_f,
 }
 
 if __name__ == "__main__":

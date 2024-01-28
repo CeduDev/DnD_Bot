@@ -1,5 +1,7 @@
 import json
-from consts import DC_CHAR_DICT, DC_BOT_CHANNEL_DICT, STAT_SKILL_ARRAY
+import sys
+from consts import DC_CHAR_DICT, DC_BOT_CHANNEL_DICT, STAT_SKILL_ARRAY, STAT_ARRAY
+from texts import FORGOT_VALUE_TEXT
 
 
 def log(text):
@@ -40,19 +42,71 @@ def get_skill(skill: str, character: str, CHAR_FILE_DICT):
     return f"Behold! The modifier for the skill '{description[1]}' unfolds before thee: {CHAR_FILE_DICT[character]['skills'][skill]}"
 
 
-def add_to_skill(skill: str, character: str, CHAR_FILE_DICT):
-    print("add")
-    print(skill)
-    print(character)
+# Skill functions
 
 
-def remove_from_skill(skill: str, character: str, CHAR_FILE_DICT):
-    print("remove")
-    print(skill)
-    print(character)
+def add_to_skill(skill: str, character: str, CHAR_FILE_DICT, value: int):
+    if value == sys.maxsize:
+        return FORGOT_VALUE_TEXT
+    else:
+        description = list(filter(lambda x: x[0] == skill, STAT_SKILL_ARRAY))[0]
+        res_value = CHAR_FILE_DICT[character]["skills"][skill] + value
+        CHAR_FILE_DICT[character]["skills"][skill] = res_value
+        return f"Huzzah! With a triumphant invocation, thou hast successfully added a value of {value} to thy skill '{description[1]}', resulting in {res_value}, weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
 
 
-def set_skill(skill: str, character: str, CHAR_FILE_DICT):
-    print("set")
-    print(skill)
-    print(character)
+def remove_from_skill(skill: str, character: str, CHAR_FILE_DICT, value: int):
+    if value == sys.maxsize:
+        return FORGOT_VALUE_TEXT
+    else:
+        description = list(filter(lambda x: x[0] == skill, STAT_SKILL_ARRAY))[0]
+        res_value = CHAR_FILE_DICT[character]["skills"][skill] - value
+        CHAR_FILE_DICT[character]["skills"][skill] = res_value
+        return f"Huzzah! With a triumphant invocation, thou hast successfully removed a value of {value} to thy skill '{description[1]}', resulting in {res_value}, weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+def set_skill(skill: str, character: str, CHAR_FILE_DICT, value: int):
+    if value == sys.maxsize:
+        return FORGOT_VALUE_TEXT
+    else:
+        description = list(filter(lambda x: x[0] == skill, STAT_SKILL_ARRAY))[0]
+        CHAR_FILE_DICT[character]["skills"][skill] = value
+        return f"Huzzah! With a triumphant invocation, thou hast successfully set a value of {value} to thy skill '{description[1]}', weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+# Stat actions
+
+
+def get_stat(stat: str, character: str, CHAR_FILE_DICT):
+    description = list(filter(lambda x: x[0] == stat, STAT_ARRAY))[0]
+
+    return f"Behold! The modifier for the stat '{description[1]}' unfolds before thee: {CHAR_FILE_DICT[character][stat]}"
+
+
+def add_to_stat(stat: str, character: str, CHAR_FILE_DICT, value: int):
+    if value == sys.maxsize:
+        return FORGOT_VALUE_TEXT
+    else:
+        description = list(filter(lambda x: x[0] == stat, STAT_ARRAY))[0]
+        res_value = CHAR_FILE_DICT[character][stat] + value
+        CHAR_FILE_DICT[character][stat] = res_value
+        return f"Huzzah! With a triumphant invocation, thou hast successfully added a value of {value} to thy stat '{description[1]}', resulting in {res_value}, weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+def remove_from_stat(stat: str, character: str, CHAR_FILE_DICT, value: int):
+    if value == sys.maxsize:
+        return FORGOT_VALUE_TEXT
+    else:
+        description = list(filter(lambda x: x[0] == stat, STAT_ARRAY))[0]
+        res_value = CHAR_FILE_DICT[character][stat] - value
+        CHAR_FILE_DICT[character][stat] = res_value
+        return f"Huzzah! With a triumphant invocation, thou hast successfully removed a value of {value} to thy stat '{description[1]}', resulting in {res_value}, weaving newfound prowess into the fabric of thy character's destiny in our digital realm."
+
+
+def set_stat(stat: str, character: str, CHAR_FILE_DICT, value: int):
+    if value == sys.maxsize:
+        return FORGOT_VALUE_TEXT
+    else:
+        description = list(filter(lambda x: x[0] == stat, STAT_ARRAY))[0]
+        CHAR_FILE_DICT[character][stat] = value
+        return f"Huzzah! With a triumphant invocation, thou hast successfully set a value of {value} to thy stat '{description[1]}', weaving newfound prowess into the fabric of thy character's destiny in our digital realm."

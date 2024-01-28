@@ -13,6 +13,8 @@ HELP_DESCRIPTION = "Scroll reveals mystic secrets, guiding thee on thy journey."
 
 SKILL_DESCRIPTION = "Mystic command shaping the skill destiny in our digital tapestry."
 
+STAT_DESCRIPTION = "Mystic command shaping the general stats in our digital tapestry."
+
 UNKNOWN_COMMAND_TEXT = f"""
 Hail, seeker of the arcane! Thy attempt at an unknown command hath stirred the ethereal winds. Fear not, for guidance lies in the sacred "/{HELP_COMMAND}" command, unveiling the secrets of our realm. Let the mystic incantations guide thee, and may the digital ether reveal its wisdom on this path of discovery.
 """
@@ -45,3 +47,5 @@ Furthermore, be aware that the privilege to invoke this enchantment is granted s
 INCORRECT_CHANNEL_TEXT = f"""
 Hark! Thy attempt to summon this incantation in this channel is met with arcane resistance. The command is reserved for the sacred chamber where Dungeon Master's wisdom reigns. Seek the rightful channel - thy personal bot channel - where revelations may unfold seamlessly.
 """
+
+FORGOT_VALUE_TEXT = "Alas, valiant seeker, the mystical forces yearn for a missing value to fuel the spell and shape the destiny of thy character's skill."

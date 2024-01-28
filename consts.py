@@ -66,6 +66,16 @@ STAT_SKILL_SLEIGHT_OF_HAND = ("sleight_of_hand", "Sleight of Hand")
 STAT_SKILL_STEALTH = ("stealth", "Stealth")
 STAT_SKILL_SURVIVAL = ("survival", "Survival")
 
+# General stat array
+STAT_ARRAY = [
+    STAT_LEVEL,
+    STAT_MAX_HP,
+    STAT_CURRENT_HP,
+    STAT_TMP_HP,
+    STAT_INITIATIVE,
+    STAT_ARMOR_CLASS,
+]
+
 # Skill array
 STAT_SKILL_ARRAY = [
     STAT_SKILL_ACROBATICS,
@@ -95,6 +105,7 @@ GET_CHARACTER_STAT_COMMAND = "get_stats"
 FUNNY1_COMMAND = "kikkeli"
 FUNNY2_COMMAND = "pippeli"
 SKILL_COMMAND = "skill"
+STAT_COMMAND = "stat"
 
 # Regexes
 ONE_OR_TWO_DIGIT_REGEX = "^\\d{1,2}$"
