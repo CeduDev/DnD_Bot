@@ -51,6 +51,8 @@ async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("pong")
 
 
+# TODO! Add functionality for different types of throws
+# (saving, ability, death save, ???)
 @client.tree.command(
     name=consts.CAST_DICE_COMMAND,
     description=texts.CAST_DICE_DESCRIPTION,

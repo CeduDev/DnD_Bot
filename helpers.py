@@ -31,12 +31,53 @@ def parse_character_stats(char_dict):
     return f"""
 The stats of {char_dict["name"]} are the following:
 
-Current health: {char_dict["current_hp"]}
-Max health: {char_dict["max_hp"]}
-Initiative: {char_dict["initiative"]}
-Armor class: {char_dict["armor_class"]}
+General:
+- Level: {char_dict["level"]}
+- Current health: {char_dict["current_hp"]}
+- Max health: {char_dict["max_hp"]}
+- Temporary health: {char_dict["tmp_hp"]}
+- Initiative: {char_dict["initiative"]}
+- Armor class: {char_dict["armor_class"]}
 
-NOTE! This feature  will be improved on!
+Death saves:
+- Successed: {char_dict["death_saves"]["successes"]}
+- Failures: {char_dict["death_saves"]["failures"]}
+
+Ability scores:
+- Strength; base: {char_dict["ability_scores"]["strength"]["base"]}, modifier: {char_dict["ability_scores"]["strength"]["modifier"]}
+- Dexterity; base: {char_dict["ability_scores"]["dexterity"]["base"]}, modifier: {char_dict["ability_scores"]["dexterity"]["modifier"]}
+- Constitution; base: {char_dict["ability_scores"]["constitution"]["base"]}, modifier: {char_dict["ability_scores"]["constitution"]["modifier"]}
+- Intelligence; base: {char_dict["ability_scores"]["intelligence"]["base"]}, modifier: {char_dict["ability_scores"]["intelligence"]["modifier"]}
+- Wisdom; base: {char_dict["ability_scores"]["wisdom"]["base"]}, modifier: {char_dict["ability_scores"]["wisdom"]["modifier"]}
+- Charisma; base: {char_dict["ability_scores"]["charisma"]["base"]}, modifier: {char_dict["ability_scores"]["charisma"]["modifier"]}
+
+Saving throws:
+- Strength: {char_dict["saving_throws"]["strength"]}
+- Dexterity: {char_dict["saving_throws"]["dexterity"]}
+- Constitution: {char_dict["saving_throws"]["constitution"]}
+- Intelligence: {char_dict["saving_throws"]["intelligence"]}
+- Wisdom: {char_dict["saving_throws"]["wisdom"]}
+- Charisma: {char_dict["saving_throws"]["charisma"]}
+
+Skills:
+- Acrobatics: {char_dict["skills"]["acrobatics"]},
+- Animal_handling: {char_dict["skills"]["animal_handling"]},
+- Arcana: {char_dict["skills"]["arcana"]},
+- Athletics: 1{char_dict["skills"]["athletics"]},
+- Deception: {char_dict["skills"]["deception"]},
+- History: {char_dict["skills"]["history"]},
+- Insight: {char_dict["skills"]["insight"]},
+- Intimidation: {char_dict["skills"]["intimidation"]},
+- Investigation: {char_dict["skills"]["investigation"]},
+- Medicine: {char_dict["skills"]["medicine"]},
+- Nature: {char_dict["skills"]["nature"]},
+- Perception: {char_dict["skills"]["perception"]},
+- Performance: {char_dict["skills"]["performance"]},
+- Persuasion: {char_dict["skills"]["persuasion"]},
+- Religion: {char_dict["skills"]["religion"]},
+- Sleight of hand: {char_dict["skills"]["sleight_of_hand"]},
+- Stealth: {char_dict["skills"]["stealth"]},
+- Survival: {char_dict["skills"]["survival"]}
     """
 
 
