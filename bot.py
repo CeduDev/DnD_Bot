@@ -533,8 +533,6 @@ async def ability_score(
         await interaction.response.send_message("wtf")
 
 
-# TODO! Add command for /cast_death_save
-
 # TODO! Add command for inventory (how to get a dynamic list of items to choice in the UI?)
 
 
