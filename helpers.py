@@ -63,7 +63,7 @@ Skills:
 - Acrobatics: {char_dict["skills"]["acrobatics"]}
 - Animal_handling: {char_dict["skills"]["animal_handling"]}
 - Arcana: {char_dict["skills"]["arcana"]}
-- Athletics: 1{char_dict["skills"]["athletics"]}
+- Athletics: {char_dict["skills"]["athletics"]}
 - Deception: {char_dict["skills"]["deception"]}
 - History: {char_dict["skills"]["history"]}
 - Insight: {char_dict["skills"]["insight"]}
