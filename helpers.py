@@ -26,7 +26,6 @@ def write_file(dict_out, file):
     return
 
 
-# TODO! Make betterrrr
 def parse_character_stats(char_dict):
     return f"""
 The stats of {char_dict["name"]} are the following:
