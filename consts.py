@@ -155,7 +155,11 @@ STAT_SKILL_ARRAY = [
 
 # Commands
 HELP_COMMAND = "help"
-CAST_DICE_COMMAND = "cast_dice"
+CAST_DICE_COMMAND_GENERAL = "cast_dice_general"
+# CAST_DICE_COMMAND_ATTACK = "cast_dice_attack"
+CAST_DICE_COMMAND_SKILL = "cast_dice_skill"
+CAST_DICE_COMMAND_SAVING = "cast_dice_saving"
+CAST_DICE_COMMAND_DEATH_SAVE = "cast_dice_death_save"
 GET_CHARACTER_STAT_COMMAND = "get_stats"
 FUNNY1_COMMAND = "kikkeli"
 FUNNY2_COMMAND = "pippeli"

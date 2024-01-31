@@ -11,6 +11,7 @@ from consts import (
     ABILITY_SCORE_ARRAY,
 )
 from texts import FORGOT_VALUE_TEXT, OUT_OF_BOUND_DEATH_SAVE
+import random
 
 
 def log(text):
@@ -98,6 +99,62 @@ def get_skill(skill: str, character: str, CHAR_FILE_DICT):
     description = list(filter(lambda x: x[0] == skill, STAT_SKILL_ARRAY))[0]
 
     return f"Behold! The modifier for the skill '{description[1]}' unfolds before thee: {CHAR_FILE_DICT[character]['skills'][skill]}"
+
+
+def throw_general(dice: int):
+    throw = random.randint(1, dice)
+    if throw == 1:
+        return f"Natural 1..."
+    elif throw == 20:
+        return f"Natural 20!"
+    else:
+        f"Thy magic d{dice} number is: {throw}!"
+
+
+def throw_skill(skill: str, character: str, CHAR_FILE_DICT):
+    throw = random.randint(1, 20)
+    if throw == 1:
+        return f"Natural 1..."
+    elif throw == 20:
+        return f"Natural 20!"
+    else:
+        return (
+            f"Thy skill roll is {throw + CHAR_FILE_DICT[character]['skills'][skill]}!"
+        )
+
+
+def throw_saving(saving_type: str, character: str, CHAR_FILE_DICT):
+    throw = random.randint(1, 20)
+    if throw == 1:
+        return f"Natural 1..."
+    elif throw == 20:
+        return f"Natural 20!"
+    else:
+        return f"Thy saving roll is {throw + CHAR_FILE_DICT[character]['saving_throws'][saving_type]}!"
+
+
+def throw_death_save(character: str, CHAR_FILE_DICT):
+    throw = random.randint(1, 2)
+    if throw == 1:
+        new = CHAR_FILE_DICT[character]["death_saves"]["failures"] + 1
+        if new == 3:
+            CHAR_FILE_DICT[character]["death_saves"]["failures"] = 0
+            CHAR_FILE_DICT[character]["death_saves"]["successes"] = 0
+            CHAR_FILE_DICT[character]["current_hp"] = 0
+            return f"You fail and die..."
+        else:
+            CHAR_FILE_DICT[character]["death_saves"]["failures"] = new
+            return f"Oh no... Your new failure death save is: {new}"
+    else:
+        new = CHAR_FILE_DICT[character]["death_saves"]["successes"] + 1
+        if new == 3:
+            CHAR_FILE_DICT[character]["death_saves"]["successes"] = 0
+            CHAR_FILE_DICT[character]["death_saves"]["failures"] = 0
+            CHAR_FILE_DICT[character]["current_hp"] = 1
+            return f"You succeed and rise once again!"
+        else:
+            CHAR_FILE_DICT[character]["death_saves"]["successes"] = new
+            return f"Huzzah! Your new success death save is: {new}"
 
 
 # Skill functions

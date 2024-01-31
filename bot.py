@@ -33,6 +33,10 @@ from helpers import (
     add_to_ability_score,
     remove_from_ability_score,
     set_ability_score,
+    throw_general,
+    throw_skill,
+    throw_saving,
+    throw_death_save,
 )
 import texts
 import consts
@@ -51,11 +55,10 @@ async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("pong")
 
 
-# TODO! Add functionality for different types of throws
-# (saving, ability, death save, ???)
+# TODO! Add functionality attack dice (needs weapon inventory)
 @client.tree.command(
-    name=consts.CAST_DICE_COMMAND,
-    description=texts.CAST_DICE_DESCRIPTION,
+    name=consts.CAST_DICE_COMMAND_GENERAL,
+    description=texts.CAST_DICE_DESCRIPTION_GENERAL,
 )
 @app_commands.describe(dice="Dice to throw")
 @app_commands.choices(
@@ -74,9 +77,91 @@ async def cast_dice(interaction: discord.Interaction, dice: int):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
         return
 
+    await interaction.response.send_message(throw_general(dice))
+
+
+@client.tree.command(
+    name=consts.CAST_DICE_COMMAND_SAVING,
+    description=texts.CAST_DICE_DESCRIPTION_SAVING,
+)
+@app_commands.describe(
+    saving_type="Which type you throw for", character="Character name"
+)
+@app_commands.choices(
+    saving_type=list(
+        map(
+            lambda x: Choice(name=x[1], value=x[0]),
+            consts.SAVING_THROW_ARRAY,
+        )
+    ),
+    character=[
+        Choice(name=consts.CHAD, value=consts.CHAD),
+        Choice(name=consts.DORYC, value=consts.DORYC),
+        Choice(name=consts.TURKEY, value=consts.TURKEY),
+    ],
+)
+async def cast_dice_saving(
+    interaction: discord.Interaction, saving_type: str, character: str
+):
+    author = interaction.user.name
+    if author != consts.DM_DC and not is_your_character(author, character):
+        await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
+        return
+
     await interaction.response.send_message(
-        f"Thy magic d{dice} number is: {random.randint(1, dice)}!"
+        throw_saving(saving_type, character, CHAR_FILE_DICT)
     )
+
+
+@client.tree.command(
+    name=consts.CAST_DICE_COMMAND_SKILL,
+    description=texts.CAST_DICE_DESCRIPTION_SKILL,
+)
+@app_commands.describe(skill="What skill to throw with", character="Character name")
+@app_commands.choices(
+    skill=list(
+        map(
+            lambda x: Choice(name=x[1], value=x[0]),
+            consts.STAT_SKILL_ARRAY,
+        )
+    ),
+    character=[
+        Choice(name=consts.CHAD, value=consts.CHAD),
+        Choice(name=consts.DORYC, value=consts.DORYC),
+        Choice(name=consts.TURKEY, value=consts.TURKEY),
+    ],
+)
+async def cast_dice_skill(interaction: discord.Interaction, skill: str, character: str):
+    author = interaction.user.name
+    if author != consts.DM_DC and not is_your_character(author, character):
+        await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
+        return
+
+    await interaction.response.send_message(
+        throw_skill(skill, character, CHAR_FILE_DICT)
+    )
+
+
+@client.tree.command(
+    name=consts.CAST_DICE_COMMAND_DEATH_SAVE,
+    description=texts.CAST_DICE_DESCRIPTION_DEATH_SAVE,
+)
+@app_commands.describe(character="Character name")
+@app_commands.choices(
+    character=[
+        Choice(name=consts.CHAD, value=consts.CHAD),
+        Choice(name=consts.DORYC, value=consts.DORYC),
+        Choice(name=consts.TURKEY, value=consts.TURKEY),
+    ],
+)
+async def cast_dice_death_save(interaction: discord.Interaction, character: str):
+    author = interaction.user.name
+    if author != consts.DM_DC and not is_your_character(author, character):
+        await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
+        return
+    res = throw_death_save(character, CHAR_FILE_DICT)
+    write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+    await interaction.response.send_message(res)
 
 
 @client.tree.command(
@@ -457,6 +542,7 @@ async def ability_score(
 async def help(interaction: discord.Interaction):
     await interaction.response.send_message(texts.HELP_TEXT1)
     await interaction.followup.send(texts.HELP_TEXT2)
+    await interaction.followup.send(texts.HELP_TEXT3)
 
 
 @client.tree.command(

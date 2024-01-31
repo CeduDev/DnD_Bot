@@ -1,6 +1,9 @@
 from consts import (
     HELP_COMMAND,
-    CAST_DICE_COMMAND,
+    CAST_DICE_COMMAND_GENERAL,
+    CAST_DICE_COMMAND_SKILL,
+    CAST_DICE_COMMAND_SAVING,
+    CAST_DICE_COMMAND_DEATH_SAVE,
     GET_CHARACTER_STAT_COMMAND,
     SKILL_COMMAND,
     STAT_COMMAND,
@@ -9,7 +12,15 @@ from consts import (
     ABILITY_SCORE_COMMAND,
 )
 
-CAST_DICE_DESCRIPTION = "Beware cryptic dice! Honor sacred numerals 2, 4, 6, 8, 9, 12, 20 for destiny's true reveal."
+CAST_DICE_DESCRIPTION_GENERAL = "Beware cryptic general dice! Honor sacred numerals 2, 4, 6, 8, 9, 12, 20 for destiny's true reveal."
+
+# CAST_DICE_DESCRIPTION_ATTACK = "Beware cryptic attack dice!"
+
+CAST_DICE_DESCRIPTION_SKILL = "Beware cryptic attack dice!"
+
+CAST_DICE_DESCRIPTION_SAVING = "Beware cryptic saving dice!"
+
+CAST_DICE_DESCRIPTION_DEATH_SAVE = "Beware cryptic death save dice!"
 
 GET_CHARACTER_STAT_DESCRIPTION = "Invoke your character's name for mystic insights; the Dungeon Master alone commands its full power."
 
@@ -42,17 +53,26 @@ Greetings, noble user of the arcane arts! Behold the mystic commands at your dis
 /{HELP_COMMAND}:
 Ah, ye seeker of wisdom, to unravel the mysteries, invoke this incantation "/{HELP_COMMAND}". A scroll of knowledge shall be revealed, unfurling the secrets of our mystical realm to guide thee on thine journey.
 
-/{CAST_DICE_COMMAND}:
-Venture forth into the unknown with the command "/{CAST_DICE_COMMAND}" Craft your fate by providing a single or double-digit offering, forsooth, but beware, for only the digits 4, 6, 8, 9, 12, and 20 are permitted in this sacred chant. May the roll of the enchanted dice shape thy destiny and unveil the path that lies ahead.
+/{CAST_DICE_COMMAND_GENERAL}:
+Venture forth into the unknown with the command "/{CAST_DICE_COMMAND_GENERAL}" Craft your fate by providing a single or double-digit offering, forsooth, but beware, for only the digits 4, 6, 8, 9, 12, and 20 are permitted in this sacred chant. May the roll of the enchanted dice shape thy destiny and unveil the path that lies ahead.
 
+/{CAST_DICE_COMMAND_SKILL}: <skill> <character>:
+Behold, noble seeker! The command '/{CAST_DICE_COMMAND_SKILL} <skill> <character>' beckons you to cast the sacred 20-sided dice, infusing the result with your skill's mystic modifier. May this enchantment unfold the fortunes of your character in the cosmic dance of our digital realm.
+
+/{CAST_DICE_COMMAND_SAVING}: <saving_type> <character>:
+Hearken, intrepid adventurer! Unveil the command '/{CAST_DICE_COMMAND_SAVING} <saving_type> <character>', an arcane ritual to cast the sacred 20-sided dice, enhancing the outcome with your saving modifier. May this mystic incantation guide your character through the perilous dance of our digital tapestry.
+
+/{CAST_DICE_COMMAND_DEATH_SAVE}: <character>:
+Hark, brave seeker! Behold the command '/{CAST_DICE_COMMAND_DEATH_SAVE} <character>' — a mystical incantation casting a 50/50 fate. Should the dice foretell failure, it adds to the count of dire death throws; success, it augments the tally of triumphant revival throws. May this arcane dice ritual shape the destiny of thy character in the intricate dance of our digital realm.
+"""
+
+HELP_TEXT2 = f"""
 /{GET_CHARACTER_STAT_COMMAND} <character_name>:
 And lo! A command of great import — '/{GET_CHARACTER_STAT_COMMAND} <character_name>'. This incantation, whispered in the shadows, unveils the arcane statistics of a character within our digital realm. Take heed, for a crucial caveat graces this command! Only the Dungeon Master, the weaver of destinies, may wield this power to its fullest. Furthermore, be aware that the privilege to invoke this enchantment is granted solely to those whose character name mirrors their own.
 
 /{SKILL_COMMAND} <action> <attribute> <character> <value>:
 In the symphony of commands, '/{SKILL_COMMAND} <action> <attribute> <character> <value>' performs a mystical action upon a character. May the harmonies of this command resonate with precision, shaping the destiny of characters in the cosmic dance of our digital tapestry.
-"""
 
-HELP_TEXT2 = f"""
 /{STAT_COMMAND} <action> <stat> <character> <value>:
 Hark, noble seeker! The command '/{STAT_COMMAND} <action> <stat> <character> <value>' beckons you to weave fate's tapestry by performing a mystical action upon a character's overarching stats. May this incantation sculpt destinies in the cosmic dance of our digital realm.
 
@@ -61,7 +81,9 @@ The command '/{DEATH_SAVES_COMMAND} <action> <version> <character> <value>' beck
 
 /{SAVING_THROWS_COMMAND} <action> <skill> <character> <value>:
 Hark, intrepid adventurer! Unveil the command '/{SAVING_THROWS_COMMAND} <action> <skill> <character> <value>', a mystic invocation to wield influence upon a character's saving throws in the cosmic dance of our digital realm. May this incantation sway the tides of destiny in thy favor.
+"""
 
+HELP_TEXT3 = f"""
 /{ABILITY_SCORE_COMMAND} <action> <ability score> <base or modifier> <character> <value>:
 Hear ye, valiant seeker! The command '/{ABILITY_SCORE_COMMAND} <action> <ability score> <base or modifier> <character> <value>' unfolds a mystical avenue to shape the essence of a character's abilities—be it base or modifier. May this incantation sculpt the very core of destiny in the cosmic dance of our digital tapestry.
 
