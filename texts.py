@@ -9,7 +9,7 @@ from consts import (
     ABILITY_SCORE_COMMAND,
 )
 
-CAST_DICE_DESCRIPTION = "Beware cryptic dice! Honor sacred numerals 4, 6, 8, 9, 12, 20 for destiny's true reveal."
+CAST_DICE_DESCRIPTION = "Beware cryptic dice! Honor sacred numerals 2, 4, 6, 8, 9, 12, 20 for destiny's true reveal."
 
 GET_CHARACTER_STAT_DESCRIPTION = "Invoke your character's name for mystic insights; the Dungeon Master alone commands its full power."
 
