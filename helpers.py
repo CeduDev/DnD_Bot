@@ -60,23 +60,23 @@ Saving throws:
 - Charisma: {char_dict["saving_throws"]["charisma"]}
 
 Skills:
-- Acrobatics: {char_dict["skills"]["acrobatics"]},
-- Animal_handling: {char_dict["skills"]["animal_handling"]},
-- Arcana: {char_dict["skills"]["arcana"]},
-- Athletics: 1{char_dict["skills"]["athletics"]},
-- Deception: {char_dict["skills"]["deception"]},
-- History: {char_dict["skills"]["history"]},
-- Insight: {char_dict["skills"]["insight"]},
-- Intimidation: {char_dict["skills"]["intimidation"]},
-- Investigation: {char_dict["skills"]["investigation"]},
-- Medicine: {char_dict["skills"]["medicine"]},
-- Nature: {char_dict["skills"]["nature"]},
-- Perception: {char_dict["skills"]["perception"]},
-- Performance: {char_dict["skills"]["performance"]},
-- Persuasion: {char_dict["skills"]["persuasion"]},
-- Religion: {char_dict["skills"]["religion"]},
-- Sleight of hand: {char_dict["skills"]["sleight_of_hand"]},
-- Stealth: {char_dict["skills"]["stealth"]},
+- Acrobatics: {char_dict["skills"]["acrobatics"]}
+- Animal_handling: {char_dict["skills"]["animal_handling"]}
+- Arcana: {char_dict["skills"]["arcana"]}
+- Athletics: 1{char_dict["skills"]["athletics"]}
+- Deception: {char_dict["skills"]["deception"]}
+- History: {char_dict["skills"]["history"]}
+- Insight: {char_dict["skills"]["insight"]}
+- Intimidation: {char_dict["skills"]["intimidation"]}
+- Investigation: {char_dict["skills"]["investigation"]}
+- Medicine: {char_dict["skills"]["medicine"]}
+- Nature: {char_dict["skills"]["nature"]}
+- Perception: {char_dict["skills"]["perception"]}
+- Performance: {char_dict["skills"]["performance"]}
+- Persuasion: {char_dict["skills"]["persuasion"]}
+- Religion: {char_dict["skills"]["religion"]}
+- Sleight of hand: {char_dict["skills"]["sleight_of_hand"]}
+- Stealth: {char_dict["skills"]["stealth"]}
 - Survival: {char_dict["skills"]["survival"]}
     """
 
