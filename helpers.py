@@ -108,7 +108,7 @@ def throw_general(dice: int):
     elif throw == 20:
         return f"Natural 20!"
     else:
-        f"Thy magic d{dice} number is: {throw}!"
+        return f"Thy magic d{dice} number is: {throw}!"
 
 
 def throw_skill(skill: str, character: str, CHAR_FILE_DICT):
