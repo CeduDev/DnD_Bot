@@ -168,6 +168,3 @@ STAT_COMMAND = "stat"
 DEATH_SAVES_COMMAND = "death_saves"
 SAVING_THROWS_COMMAND = "saving_throws"
 ABILITY_SCORE_COMMAND = "ability_score"
-
-# Regexes
-ONE_OR_TWO_DIGIT_REGEX = "^\\d{1,2}$"
