@@ -50,9 +50,27 @@ SET = ("set", "Set")
 
 ACTION_ARRAY = [GET, ADD, REMOVE, SET]
 
+# # Equipped weapon attributes with description:
+# EQUIPPED_WEAPON_ID = ("id", "Id")
+# EQUIPPED_WEAPON_NAME = ("name", "Name")
+# EQUIPPED_WEAPON_HIT = ("hit", "Hit")
+# EQUIPPED_WEAPON_DAMAGE_DICE = ("damage_dice", "Damage Dice")
+# EQUIPPED_WEAPON_DAMAGE_ADDITION = ("damage_addition", "Damage Addition")
+# EQUIPPED_WEAPON_NOTES = ("notes", "Notes")
+
+# EQUIPPED_WEAPON_ATTRIBUTES_ARRAY[
+#     EQUIPPED_WEAPON_ID,
+#     EQUIPPED_WEAPON_NAME,
+#     EQUIPPED_WEAPON_HIT,
+#     EQUIPPED_WEAPON_DAMAGE_DICE,
+#     EQUIPPED_WEAPON_DAMAGE_ADDITION,
+#     EQUIPPED_WEAPON_NOTES,
+# ]
+
 # Individual stats with description
 STAT_NAME = ("name", "Name")
 STAT_LEVEL = ("level", "Level")
+STAT_SPEED = ("speed", "Speed")
 STAT_MAX_HP = ("max_hp", "Max HP")
 STAT_CURRENT_HP = ("current_hp", "Current HP")
 STAT_TMP_HP = ("tmp_hp", "Temporary HP")
@@ -101,6 +119,7 @@ STAT_SKILL_SURVIVAL = ("survival", "Survival")
 # General stat array
 STAT_ARRAY = [
     STAT_LEVEL,
+    STAT_SPEED,
     STAT_MAX_HP,
     STAT_CURRENT_HP,
     STAT_TMP_HP,
@@ -168,3 +187,4 @@ STAT_COMMAND = "stat"
 DEATH_SAVES_COMMAND = "death_saves"
 SAVING_THROWS_COMMAND = "saving_throws"
 ABILITY_SCORE_COMMAND = "ability_score"
+# EQUIPPED_WEAPONS_COMMAND = "equipped_weapons"

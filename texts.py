@@ -30,6 +30,8 @@ SKILL_DESCRIPTION = "Mystic command shaping the skill destiny in our digital tap
 
 STAT_DESCRIPTION = "Mystic command shaping the general stats in our digital tapestry."
 
+# EQUIPPED_WEAPONS_DESCRIPTION = "Equipped weapons lol"
+
 DEATH_SAVES_DESCRIPTION = (
     "Mystic command shaping the death saves in our digital tapestry."
 )

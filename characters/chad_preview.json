@@ -1,10 +1,11 @@
 {
-  "name": "Chad", 
+  "name": "Chad",
   "level": 1,
-  "max_hp": 11, 
-  "current_hp": 10, 
-  "tmp_hp": 0, 
-  "initiative": 2, 
+  "speed": 35,
+  "max_hp": 11,
+  "current_hp": 2,
+  "tmp_hp": 0,
+  "initiative": 2,
   "armor_class": 12,
   "saving_throw_advantage": "Advantage against being charmed",
   "defenses": "Immunities - Magical Sleep",
@@ -13,12 +14,30 @@
     "failures": 0
   },
   "ability_scores": {
-    "strength": { "base": 9, "modifier": -1 },
-    "dexterity": { "base": 15, "modifier": 2 },
-    "constitution": { "base": 12, "modifier": 1 },
-    "intelligence": { "base": 14, "modifier": 2 },
-    "wisdom": { "base": 15, "modifier": 2 },
-    "charisma": { "base": 11, "modifier": 0 }
+    "strength": {
+      "base": 9,
+      "modifier": -1
+    },
+    "dexterity": {
+      "base": 15,
+      "modifier": 2
+    },
+    "constitution": {
+      "base": 12,
+      "modifier": 1
+    },
+    "intelligence": {
+      "base": 14,
+      "modifier": 2
+    },
+    "wisdom": {
+      "base": 15,
+      "modifier": 2
+    },
+    "charisma": {
+      "base": 11,
+      "modifier": 0
+    }
   },
   "saving_throws": {
     "strength": 1,

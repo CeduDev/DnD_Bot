@@ -6,38 +6,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 from discord.app_commands import Choice
-from helpers import (
-    log,
-    read_file,
-    write_file,
-    parse_character_stats,
-    is_your_character,
-    is_correct_character_stat_channel,
-    get_skill,
-    add_to_skill,
-    remove_from_skill,
-    set_skill,
-    get_stat,
-    add_to_stat,
-    remove_from_stat,
-    set_stat,
-    get_death_save,
-    add_to_death_save,
-    remove_from_death_save,
-    set_death_save,
-    get_saving_throw,
-    add_to_saving_throw,
-    remove_from_saving_throw,
-    set_saving_throw,
-    get_ability_score,
-    add_to_ability_score,
-    remove_from_ability_score,
-    set_ability_score,
-    throw_general,
-    throw_skill,
-    throw_saving,
-    throw_death_save,
-)
+import helpers
 import texts
 import consts
 import typing
@@ -73,11 +42,11 @@ async def ping(interaction: discord.Interaction):
     ]
 )
 async def cast_dice(interaction: discord.Interaction, dice: int):
-    if not is_correct_character_stat_channel(interaction):
+    if not helpers.is_correct_character_stat_channel(interaction):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
         return
 
-    await interaction.response.send_message(throw_general(dice))
+    await interaction.response.send_message(helpers.throw_general(dice))
 
 
 @client.tree.command(
@@ -104,12 +73,12 @@ async def cast_dice_saving(
     interaction: discord.Interaction, saving_type: str, character: str
 ):
     author = interaction.user.name
-    if author != consts.DM_DC and not is_your_character(author, character):
+    if author != consts.DM_DC and not helpers.is_your_character(author, character):
         await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
         return
 
     await interaction.response.send_message(
-        throw_saving(saving_type, character, CHAR_FILE_DICT)
+        helpers.throw_saving(saving_type, character, CHAR_FILE_DICT)
     )
 
 
@@ -133,12 +102,12 @@ async def cast_dice_saving(
 )
 async def cast_dice_skill(interaction: discord.Interaction, skill: str, character: str):
     author = interaction.user.name
-    if author != consts.DM_DC and not is_your_character(author, character):
+    if author != consts.DM_DC and not helpers.is_your_character(author, character):
         await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
         return
 
     await interaction.response.send_message(
-        throw_skill(skill, character, CHAR_FILE_DICT)
+        helpers.throw_skill(skill, character, CHAR_FILE_DICT)
     )
 
 
@@ -156,11 +125,11 @@ async def cast_dice_skill(interaction: discord.Interaction, skill: str, characte
 )
 async def cast_dice_death_save(interaction: discord.Interaction, character: str):
     author = interaction.user.name
-    if author != consts.DM_DC and not is_your_character(author, character):
+    if author != consts.DM_DC and not helpers.is_your_character(author, character):
         await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
         return
-    res = throw_death_save(character, CHAR_FILE_DICT)
-    write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+    res = helpers.throw_death_save(character, CHAR_FILE_DICT)
+    helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
     await interaction.response.send_message(res)
 
 
@@ -177,17 +146,19 @@ async def cast_dice_death_save(interaction: discord.Interaction, character: str)
     ]
 )
 async def get_character_stat(interaction: discord.Interaction, character: str):
-    if not is_correct_character_stat_channel(interaction, character):
+    if not helpers.is_correct_character_stat_channel(interaction, character):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
         return
 
     author = interaction.user.name
-    if author != consts.DM_DC and not is_your_character(author, character):
+    if author != consts.DM_DC and not helpers.is_your_character(author, character):
         await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
         return
 
     await interaction.response.send_message(
-        parse_character_stats(read_file(f"./characters/{character}.json"))
+        helpers.parse_character_stats(
+            helpers.read_file(f"./characters/{character}.json")
+        )
     )
 
 
@@ -224,30 +195,30 @@ async def stat(
     character: str,
     value: typing.Optional[int] = sys.maxsize,
 ):
-    if not is_correct_character_stat_channel(interaction, character):
+    if not helpers.is_correct_character_stat_channel(interaction, character):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
         return
 
     author = interaction.user.name
-    if author != consts.DM_DC and not is_your_character(author, character):
+    if author != consts.DM_DC and not helpers.is_your_character(author, character):
         await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
         return
 
     if action == consts.GET[0]:
         await interaction.response.send_message(
-            get_stat(stat, character, CHAR_FILE_DICT)
+            helpers.get_stat(stat, character, CHAR_FILE_DICT)
         )
     elif action == consts.ADD[0]:
-        res = add_to_stat(stat, character, CHAR_FILE_DICT, value)
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        res = helpers.add_to_stat(stat, character, CHAR_FILE_DICT, value)
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     elif action == consts.REMOVE[0]:
-        res = remove_from_stat(stat, character, CHAR_FILE_DICT, value)
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        res = helpers.remove_from_stat(stat, character, CHAR_FILE_DICT, value)
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     elif action == consts.SET[0]:
-        res = set_stat(stat, character, CHAR_FILE_DICT, value)
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        res = helpers.set_stat(stat, character, CHAR_FILE_DICT, value)
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     else:
         await interaction.response.send_message("wtf")
@@ -286,30 +257,30 @@ async def skill(
     character: str,
     value: typing.Optional[int] = sys.maxsize,
 ):
-    if not is_correct_character_stat_channel(interaction, character):
+    if not helpers.is_correct_character_stat_channel(interaction, character):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
         return
 
     author = interaction.user.name
-    if author != consts.DM_DC and not is_your_character(author, character):
+    if author != consts.DM_DC and not helpers.is_your_character(author, character):
         await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
         return
 
     if action == consts.GET[0]:
         await interaction.response.send_message(
-            get_skill(skill, character, CHAR_FILE_DICT)
+            helpers.get_skill(skill, character, CHAR_FILE_DICT)
         )
     elif action == consts.ADD[0]:
-        res = add_to_skill(skill, character, CHAR_FILE_DICT, value)
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        res = helpers.add_to_skill(skill, character, CHAR_FILE_DICT, value)
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     elif action == consts.REMOVE[0]:
-        res = remove_from_skill(skill, character, CHAR_FILE_DICT, value)
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        res = helpers.remove_from_skill(skill, character, CHAR_FILE_DICT, value)
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     elif action == consts.SET[0]:
-        res = set_skill(skill, character, CHAR_FILE_DICT, value)
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        res = helpers.set_skill(skill, character, CHAR_FILE_DICT, value)
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     else:
         await interaction.response.send_message("wtf")
@@ -356,30 +327,30 @@ async def death_saves(
     character: str,
     value: typing.Optional[int] = sys.maxsize,
 ):
-    if not is_correct_character_stat_channel(interaction, character):
+    if not helpers.is_correct_character_stat_channel(interaction, character):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
         return
 
     author = interaction.user.name
-    if author != consts.DM_DC and not is_your_character(author, character):
+    if author != consts.DM_DC and not helpers.is_your_character(author, character):
         await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
         return
 
     if action == consts.GET[0]:
         await interaction.response.send_message(
-            get_death_save(version, character, CHAR_FILE_DICT)
+            helpers.get_death_save(version, character, CHAR_FILE_DICT)
         )
     elif action == consts.ADD[0]:
-        res = add_to_death_save(version, character, CHAR_FILE_DICT, value)
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        res = helpers.add_to_death_save(version, character, CHAR_FILE_DICT, value)
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     elif action == consts.REMOVE[0]:
-        res = remove_from_death_save(version, character, CHAR_FILE_DICT, value)
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        res = helpers.remove_from_death_save(version, character, CHAR_FILE_DICT, value)
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     elif action == consts.SET[0]:
-        res = set_death_save(version, character, CHAR_FILE_DICT, value)
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        res = helpers.set_death_save(version, character, CHAR_FILE_DICT, value)
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     else:
         await interaction.response.send_message("wtf")
@@ -420,30 +391,34 @@ async def saving_throw(
     character: str,
     value: typing.Optional[int] = sys.maxsize,
 ):
-    if not is_correct_character_stat_channel(interaction, character):
+    if not helpers.is_correct_character_stat_channel(interaction, character):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
         return
 
     author = interaction.user.name
-    if author != consts.DM_DC and not is_your_character(author, character):
+    if author != consts.DM_DC and not helpers.is_your_character(author, character):
         await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
         return
 
     if action == consts.GET[0]:
         await interaction.response.send_message(
-            get_saving_throw(saving_throw, character, CHAR_FILE_DICT)
+            helpers.get_saving_throw(saving_throw, character, CHAR_FILE_DICT)
         )
     elif action == consts.ADD[0]:
-        res = add_to_saving_throw(saving_throw, character, CHAR_FILE_DICT, value)
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        res = helpers.add_to_saving_throw(
+            saving_throw, character, CHAR_FILE_DICT, value
+        )
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     elif action == consts.REMOVE[0]:
-        res = remove_from_saving_throw(saving_throw, character, CHAR_FILE_DICT, value)
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        res = helpers.remove_from_saving_throw(
+            saving_throw, character, CHAR_FILE_DICT, value
+        )
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     elif action == consts.SET[0]:
-        res = set_saving_throw(saving_throw, character, CHAR_FILE_DICT, value)
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        res = helpers.set_saving_throw(saving_throw, character, CHAR_FILE_DICT, value)
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     else:
         await interaction.response.send_message("wtf")
@@ -496,38 +471,38 @@ async def ability_score(
     character: str,
     value: typing.Optional[int] = sys.maxsize,
 ):
-    if not is_correct_character_stat_channel(interaction, character):
+    if not helpers.is_correct_character_stat_channel(interaction, character):
         await interaction.response.send_message(texts.INCORRECT_CHANNEL_TEXT)
         return
 
     author = interaction.user.name
-    if author != consts.DM_DC and not is_your_character(author, character):
+    if author != consts.DM_DC and not helpers.is_your_character(author, character):
         await interaction.response.send_message(texts.ONLY_DM_TEXT_AND_YOUR_CHARACTER)
         return
 
     if action == consts.GET[0]:
         await interaction.response.send_message(
-            get_ability_score(
+            helpers.get_ability_score(
                 ability_score, base_or_modifier, character, CHAR_FILE_DICT
             )
         )
     elif action == consts.ADD[0]:
-        res = add_to_ability_score(
+        res = helpers.add_to_ability_score(
             ability_score, base_or_modifier, character, CHAR_FILE_DICT, value
         )
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     elif action == consts.REMOVE[0]:
-        res = remove_from_ability_score(
+        res = helpers.remove_from_ability_score(
             ability_score, base_or_modifier, character, CHAR_FILE_DICT, value
         )
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     elif action == consts.SET[0]:
-        res = set_ability_score(
+        res = helpers.set_ability_score(
             ability_score, base_or_modifier, character, CHAR_FILE_DICT, value
         )
-        write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
+        helpers.write_file(CHAR_FILE_DICT[character], CHAR_FILE[character])
         await interaction.response.send_message(res)
     else:
         await interaction.response.send_message("wtf")
@@ -577,16 +552,16 @@ async def on_message(message):
 async def on_ready():
     await client.change_presence(status=discord.Status.online)
     await client.tree.sync()
-    log(f"We have logged in as {client.user}")
+    helpers.log(f"We have logged in as {client.user}")
 
 
 chad_f = "./characters/chad.json"
 doryc_f = "./characters/doryc.json"
 turkey_f = "./characters/turkey.json"
 
-chad_dict = read_file(chad_f)
-doryc_dict = read_file(doryc_f)
-turkey_dict = read_file(turkey_f)
+chad_dict = helpers.read_file(chad_f)
+doryc_dict = helpers.read_file(doryc_f)
+turkey_dict = helpers.read_file(turkey_f)
 
 CHAR_FILE_DICT = {
     consts.CHAD: chad_dict,
@@ -601,15 +576,15 @@ CHAR_FILE = {
 }
 
 if __name__ == "__main__":
-    log("Successfully read all the character files!")
-    log("Running client...")
+    helpers.log("Successfully read all the character files!")
+    helpers.log("Running client...")
     client.run(os.getenv("BOT_PASSWORD"))
-    log("Bot has stopped, writing files...")
+    helpers.log("Bot has stopped, writing files...")
     try:
-        write_file(chad_dict, chad_f)
-        write_file(doryc_dict, doryc_f)
-        write_file(turkey_dict, turkey_f)
-        log("Successfully wrote files")
+        helpers.write_file(chad_dict, chad_f)
+        helpers.write_file(doryc_dict, doryc_f)
+        helpers.write_file(turkey_dict, turkey_f)
+        helpers.log("Successfully wrote files")
     except:
-        log("Failed writing files...")
-    log("Shutting down...")
+        helpers.log("Failed writing files...")
+    helpers.log("Shutting down...")
