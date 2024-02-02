@@ -187,7 +187,7 @@ async def get_character_stat(interaction: discord.Interaction, character: str):
         return
 
     await interaction.response.send_message(
-        parse_character_stats(read_file(f"./characters/{character}.txt"))
+        parse_character_stats(read_file(f"./characters/{character}.json"))
     )
 
 
@@ -580,9 +580,9 @@ async def on_ready():
     log(f"We have logged in as {client.user}")
 
 
-chad_f = "./characters/chad.txt"
-doryc_f = "./characters/doryc.txt"
-turkey_f = "./characters/turkey.txt"
+chad_f = "./characters/chad.json"
+doryc_f = "./characters/doryc.json"
+turkey_f = "./characters/turkey.json"
 
 chad_dict = read_file(chad_f)
 doryc_dict = read_file(doryc_f)
