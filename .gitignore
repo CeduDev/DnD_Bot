@@ -2,3 +2,4 @@
 __pycache__/
 *.py[cod]
 dnd_venv/
+dnd_venv.bak/
